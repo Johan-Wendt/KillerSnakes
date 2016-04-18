@@ -1,10 +1,10 @@
 package rest;
 
-public class playerController extends TypeControllerBase{
+public class PlayerController extends TypeControllerBase{
 	private int numberOfcreatedPlayers = 0;
 	public static final int MAX_NUMBER_OF_SNAKES = 4;
 	
-	public playerController() {
+	public PlayerController() {
 		super();
 	}
 	
@@ -24,7 +24,7 @@ public class playerController extends TypeControllerBase{
 
 	public void turnPlayer(Players player, Directions direction) {
 		PlayerBase playerBase = (PlayerBase) super.getActingObjects().get(player.ordinal());
-		player.turn(direction);
+		playerBase.turn(direction);
 	}
 
 	//public void shoot(WeaponController weaponController, byte player) {

@@ -1,8 +1,8 @@
 package rest;
 
 public interface Interactor {
-	public int[] getSendPositions();
-	public int[] getCrashPositions();
+	public int[] getPositionsSend();
+	public int[] getPositionsCrash();
 	public void handleGettingCrashed(Mover violator);
 	
 

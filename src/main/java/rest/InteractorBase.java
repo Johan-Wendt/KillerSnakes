@@ -39,8 +39,8 @@ public abstract class InteractorBase implements Interactor{
 		return toBeRemoved;
 	}
 
-	public void setToBeRemoved(boolean toBeRemoved) {
-		this.toBeRemoved = toBeRemoved;
+	public void setToBeRemoved() {
+		toBeRemoved = true;
 	}
 
 	public InteractorDetails getInteractor() {
@@ -49,5 +49,10 @@ public abstract class InteractorBase implements Interactor{
 
 	public void setInteractor(Interactors interactor) {
 		this.interactor = interactor;
+	}
+	
+	public int [] getPositionsSend() {
+		int[] result = {interactor.type(), interactor.subType(), xPos, yPos};
+		return result;
 	}
 }

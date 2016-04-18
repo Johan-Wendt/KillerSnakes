@@ -2,66 +2,45 @@ package rest;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import com.google.common.primitives.Bytes;
 
-public class SnakeMasterController {
+public class SnakeMasterController implements MasterController{
 	// private GameBoardController gameBoardController = new
 	// GameBoardController();
 	// private BonusController bonusController = new BonusController();
 	// private WeaponController weaponController;
-	private SnakeController snakeController;
+	private PlayerController playerController;
 	private GameLoop gameLoop;
 	private HumanTouch socket;
+	private ArrayList<TypeController> controllers = new  ArrayList<>();
 
 	public SnakeMasterController(HumanTouch socket) {
 
 		this.socket = socket;
 
-		snakeController = new SnakeController(this);
+		playerController = new PlayerController();
 		// weaponController = new WeaponController(this);
 
 		// Just contemporary
-		snakeController.createPlayer();
-		snakeController.createPlayerAI();
+		playerController.createPlayer();
+		playerController.createPlayerAI();
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
+		
+		controllers.add(playerController);
 	}
 
-	/**
-	 * public VisibleObject craschCheck(byte xPos,byte yPos, MovingObject
-	 * movingObject) { VisibleObject plan = gameBoardController.checkCrash(xPos,
-	 * yPos, movingObject); if(plan != null) { return plan; } VisibleObject
-	 * bonus = bonusController.checkCrash(xPos, yPos, movingObject); if(bonus !=
-	 * null) { return bonus; } VisibleObject play =
-	 * snakeController.checkCrash(xPos, yPos, movingObject); if(play != null) {
-	 * return play; } VisibleObject proj = weaponController.checkCrash(xPos,
-	 * yPos, movingObject); if(proj != null) { return proj; } //byte[] noDice =
-	 * {-1}; return null; }
-	 **/
 	public void gameRound() {
 		// weaponController.act(this);
-		snakeController.act(this);
+		playerController.controllerRound(this);
+		sendOutPut();
 		// bonusController.act(this);
 	}
 
-	/**
-	 * public byte[] buildPostitions() {
-	 * 
-	 * byte[] playerPositions = snakeController.getAllPositions(); byte []
-	 * projectilePositions = weaponController.getAllPositions();
-	 * 
-	 * byte[] bonusPositions = bonusController.getAllPositions(); // }
-	 * 
-	 * // byte[] gamePlanChanges = gameBoardController.getAllPositions();
-	 * 
-	 * //byte[] result = Bytes.concat(playerPositions, projectilePositions,
-	 * bonusPositions, gamePlanChanges); byte[] result =
-	 * Bytes.concat(playerPositions, projectilePositions, bonusPositions);
-	 * 
-	 * return result; }
-	 */
 	public void handleInput(int[] input) {
 		// First byte is player number
 		// Second byte is type of action
@@ -85,8 +64,9 @@ public class SnakeMasterController {
 		}
 	}
 
-	public void sendPositions() {
-		int[] positions = getAllPositions();
+	@Override
+	public void sendOutPut() {
+		int[] positions = getAllPositionsSend();
 		sendMessage(positions);
 
 	}
@@ -95,20 +75,43 @@ public class SnakeMasterController {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DataOutputStream dos = new DataOutputStream(baos);
 		for (int i = 0; i < values.length; ++i) {
-			dos.writeInt(values[i]);
+			try {
+				dos.writeInt(values[i]);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return baos.toByteArray();
 	}
 
-	private void sendMessage(int[] message) {
+	private void sendMessage(int[] message)  {
 		byte[] byteMessage = integersToBytes(message);
 
 		ByteBuffer buf = ByteBuffer.wrap(byteMessage);
 		socket.updatePlayer(buf);
 
 	}
-	public int[] getAllPositions() {
+	public int[] getAllPositionsSend() {
+		int[] result = new int[0];
+		for(TypeController controller: controllers) {
+			result = HelperMethods.intConcatenator(result, controller.getAllPositionsSend());
+		}
+		return result;
+	}
+
+	@Override
+	public Interactor craschCheck(int xPos, int yPos, Interactor interactor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void takeInput(byte[] input) {
+		// TODO Auto-generated method stub
 		
 	}
+
+	
+
 }

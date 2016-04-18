@@ -10,16 +10,20 @@ public abstract class TypeControllerBase implements TypeController {
 
 	}
 
-	public void gameRound() {
+	public void controllerRound(MasterController masterController) {
+		act(masterController);
+		disposeOfRemovables();
+	}
+	public void act(MasterController masterController) {
 		for(Actor actor: actingObjects) {
 			actor.act();
 		}
 	}
 
-	public int[] getAllPositions() {
+	public int[] getAllPositionsSend() {
 		int[] result = new int[0];
 		for(Actor actor: actingObjects) {
-			result = HelperMethods.intConcatenator(result, actor.getSendPositions());
+			result = HelperMethods.intConcatenator(result, actor.getPositionsSend());
 		}
 		return result;
 		

@@ -1,8 +1,8 @@
 package rest;
 
 public interface Controller {
-	public void gameRound();
-	public int[] getAllPositions();
+	
+	public int[] getAllPositionsSend();
 	public Interactor craschCheck(int xPos,int yPos, Interactor interactor);
 
 }
