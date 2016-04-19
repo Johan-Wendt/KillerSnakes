@@ -1,6 +1,8 @@
 package rest;
 
-public abstract class MoverBase extends InteractorBase implements Mover{
+public abstract class MoverBase extends ActorBase implements Mover{
+	private Directions steeringDirection;
+	private Directions movingDirection;
 
 	public MoverBase(InteractorDetails interactor) {
 		super(interactor);
@@ -8,14 +10,20 @@ public abstract class MoverBase extends InteractorBase implements Mover{
 	
 	@Override
 	public void act() {
-		// TODO Auto-generated method stub
+		move();
 		
 	}
 	
 	@Override
 	public void move() {
-		// TODO Auto-generated method stub
 		
+		
+	}
+	private int getNextxStep() {
+		return super.getxPos() + steeringDirection.getxMultiplier() * getHeight();
+	}
+	private int getNextyStep() {
+		return super.getyPos() + steeringDirection.getyMultiplier() * getHeight();
 	}
 	
 

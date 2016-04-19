@@ -6,9 +6,14 @@ public abstract class InteractorBase implements Interactor{
 	private int rotation;
 	private boolean toBeRemoved = false;
 	private InteractorDetails interactor;
+	private int width;
+	private int height;
 	
 	public InteractorBase(InteractorDetails interactor) {
 		this.interactor = interactor;
+		width = interactor.width();
+		height = interactor.height();
+		
 	}
 
 	public int getxPos() {
@@ -54,5 +59,25 @@ public abstract class InteractorBase implements Interactor{
 	public int [] getPositionsSend() {
 		int[] result = {interactor.type(), interactor.subType(), xPos, yPos};
 		return result;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setInteractor(InteractorDetails interactor) {
+		this.interactor = interactor;
 	}
 }

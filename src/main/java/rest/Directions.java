@@ -6,15 +6,21 @@ public enum Directions {
 	DOWN (0, 1),
 	LEFT (-1, 0);
 	
-	private final double xMultiplier;
-	private final double yMultiplier;
+	private final int xMultiplier;
+	private final int yMultiplier;
 	
-	Directions(double xMultiplier, double yMultiplier) {
+	Directions(int xMultiplier, int yMultiplier) {
 		this.xMultiplier = xMultiplier;
 		this.yMultiplier = yMultiplier;
 	}
-	private double xMultiplier () {return xMultiplier;}
-	private double yMultiplier () {return yMultiplier;}
+	private int xMultiplier () {return xMultiplier;}
+	private int yMultiplier () {return yMultiplier;}
+	public int getxMultiplier() {
+		return xMultiplier;
+	}
+	public int getyMultiplier() {
+		return yMultiplier;
+	}
 
 
 }

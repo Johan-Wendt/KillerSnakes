@@ -8,6 +8,7 @@ public interface InteractorDetails {
 	//with the type. If type says player, subType says what player.
 	public int subType();
 	public int width ();
-	public int heigth ();
+	public int height ();
+	public int length();
 
 }

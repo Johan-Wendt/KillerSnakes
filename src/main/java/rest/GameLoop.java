@@ -119,7 +119,7 @@ public class GameLoop implements Constants {
 	}
 
 	public void sendPositions() {
-		//masterController.sendPositions();
+	//	masterController.sendPositions();
 	}
 	
 

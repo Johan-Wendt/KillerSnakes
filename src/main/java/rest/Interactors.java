@@ -22,7 +22,13 @@ public enum Interactors implements InteractorDetails{
 	}
 
 	@Override
-	public int heigth() {
+	public int height() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public int length() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

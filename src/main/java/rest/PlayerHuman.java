@@ -4,12 +4,9 @@ public class PlayerHuman extends PlayerBase {
 	
 	public PlayerHuman(Players player) {
 		super(player);
+	super.setxPos(300);
+	super.setyPos(400);
 	}
-
-	
-
-	
-
 
 
 

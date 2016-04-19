@@ -20,7 +20,7 @@ public class HumanTouch {
 	private Session session;
 	private RemoteEndpoint remote;
 //	private GamePlan gamePlan = new GamePlan();
-//	private MasterController masterController;
+	private SnakeMasterController masterController;
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
 		System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);
@@ -37,7 +37,7 @@ public class HumanTouch {
 		session = sessions;
 		System.out.println("Connect: " + session.getRemoteAddress().getAddress());
 		remote = session.getRemote();
-//		masterController = new MasterController(this);
+		masterController = new SnakeMasterController(this);
 	}
 
 	/**
