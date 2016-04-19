@@ -12,5 +12,9 @@ public interface TypeController extends Controller {
 	public void disposeOfRemovables();
 
 	public ArrayList<Actor> getActingObjects();
+	
+	public void setTypeControlled(Types type);
+	
+	public int getTypeControlled();
 
 }

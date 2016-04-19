@@ -22,7 +22,7 @@ public class SnakeMasterController implements MasterController{
 
 		this.socket = socket;
 
-		playerController = new PlayerController();
+		playerController = new PlayerController(Types.PLAYER);
 		// weaponController = new WeaponController(this);
 
 		// Just contemporary

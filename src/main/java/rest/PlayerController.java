@@ -4,8 +4,8 @@ public class PlayerController extends TypeControllerBase{
 	private int numberOfcreatedPlayers = 0;
 	public static final int MAX_NUMBER_OF_SNAKES = 4;
 	
-	public PlayerController() {
-		super();
+	public PlayerController(Types type) {
+		super(type);
 	}
 	
 	public void createPlayer() {

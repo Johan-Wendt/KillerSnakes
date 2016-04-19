@@ -5,9 +5,10 @@ import java.util.Iterator;
 
 public abstract class TypeControllerBase implements TypeController {
 	private ArrayList<Actor> actingObjects = new ArrayList<>();
+	private int typesControlled;
 
-	public TypeControllerBase() {
-
+	public TypeControllerBase(Types type) {
+		setTypeControlled(type);
 	}
 
 	public void controllerRound(MasterController masterController) {
@@ -21,10 +22,18 @@ public abstract class TypeControllerBase implements TypeController {
 	}
 
 	public int[] getAllPositionsSend() {
-		int[] result = new int[0];
+		int[] result = new int[1 + actingObjects.size() * Constants.INTS_SENT_PER_OBJECT + 1];
+		result[0] = getTypeControlled();
+		int pointer = 0;
 		for(Actor actor: actingObjects) {
-			result = HelperMethods.intConcatenator(result, actor.getPositionsSend());
+			int[] tempResult = actor.getPositionsSend();
+			int n = 0;
+			while(n < tempResult.length) {
+				result[pointer + n + 1] = tempResult[n];
+			}
+			pointer += Constants.INTS_SENT_PER_OBJECT;
 		}
+		result[result.length - 1] = -1;
 		return result;
 		
 	}
@@ -52,6 +61,14 @@ public abstract class TypeControllerBase implements TypeController {
 	
 	public ArrayList<Actor> getActingObjects() {
 		return actingObjects;
+	}
+	
+public void setTypeControlled(Types type) {
+	typesControlled = type.type();
+}
+	
+	public int getTypeControlled() {
+		return typesControlled;
 	}
 
 }
