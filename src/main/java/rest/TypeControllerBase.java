@@ -17,7 +17,7 @@ public abstract class TypeControllerBase implements TypeController {
 	}
 	public void act(MasterController masterController) {
 		for(Actor actor: actingObjects) {
-			actor.act();
+			actor.gameRound();
 		}
 	}
 

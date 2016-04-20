@@ -5,9 +5,12 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	private int currentActingPoints = 0;
 	private int actingSpeed = 10;
 
-	public ActorBase(InteractorDetails interactor, Forms form) {
-		super(interactor, form);
+	public ActorBase(InteractorDetails interactor) {
+		super(interactor);
 		// TODO Auto-generated constructor stub
+	}
+	public ActorBase(InteractorDetails interactor, Forms form,int xPos,int yPos) {
+		super(interactor, form, xPos, yPos);
 	}
 	public void gameRound() {
 		if(isTimeToAct()) {

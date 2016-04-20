@@ -9,6 +9,8 @@ public interface Interactor {
 	public void setyPos(int newX);
 	public int getyPos();
 	public Forms getForm();
+	public void setForm(Forms form);
+	public void setRotation(int degrees);
 	
 
 }

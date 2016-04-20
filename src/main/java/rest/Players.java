@@ -1,7 +1,7 @@
 package rest;
 
 public enum Players implements PlayerDetails {
-	PLAYER1(1, Directions.UP), PLAYER2(2, Directions.DOWN), PLAYER3(3, Directions.RIGHT), PLAYER4(4, Directions.LEFT);
+	PLAYER1(1, Directions.UP, 100, 100), PLAYER2(2, Directions.DOWN, 140, 140), PLAYER3(3, Directions.RIGHT,180, 180), PLAYER4(4, Directions.LEFT, 220, 220);
 
 	private final int type;
 	private final int width;
@@ -10,8 +10,10 @@ public enum Players implements PlayerDetails {
 	private final Directions startDirection;
 	private final int startSpeed;
 	private final int startLength;
+	private final int startX;
+	private final int startY;
 
-	Players(int subType, Directions startDirection) {
+	Players(int subType, Directions startDirection, int startX,int startY) {
 		type = 1;
 		startSpeed = 10;
 		width = 12;
@@ -19,6 +21,8 @@ public enum Players implements PlayerDetails {
 		startLength = 8;
 		this.subType = subType;
 		this.startDirection = startDirection;
+		this.startX = startX;
+		this.startY = startY;
 
 	}
 
@@ -51,6 +55,22 @@ public enum Players implements PlayerDetails {
 	@Override
 	public int length() {
 		return startLength;
+	}
+
+	@Override
+	public Forms form() {
+		
+		return Forms.RECTANGLE;
+	}
+	
+	public Forms headForm() {
+		return Forms.HALF_CIRCKLE;
+	}
+	public int startX() {
+		return startX;
+	}
+	public int startY() {
+		return startY;
 	}
 
 }

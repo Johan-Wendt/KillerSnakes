@@ -10,15 +10,15 @@ public class PlayerController extends TypeControllerBase{
 	
 	public void createPlayer() {
 		if (numberOfcreatedPlayers < MAX_NUMBER_OF_SNAKES) {
-			super.addToActingObjects(new PlayerHuman(Players.values()[numberOfcreatedPlayers], Forms.RECTANGLE));
+			super.addToActingObjects(new PlayerHuman(Players.values()[numberOfcreatedPlayers]));
 			numberOfcreatedPlayers++;
 		}
 	}
 
 	public void createPlayerAI() {
 		if (numberOfcreatedPlayers < MAX_NUMBER_OF_SNAKES) {
-			//super.addToActingObjects(new PlayerAI(Players.values()[numberOfcreatedPlayers]));
-			//numberOfcreatedPlayers++;
+			super.addToActingObjects(new PlayerHuman(Players.values()[numberOfcreatedPlayers]));
+			numberOfcreatedPlayers++;
 		}
 	}
 

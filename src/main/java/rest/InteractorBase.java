@@ -1,6 +1,6 @@
 package rest;
 
-public abstract class InteractorBase implements Interactor{
+public abstract class InteractorBase implements Interactor {
 	private int xPos;
 	private int yPos;
 	private int rotation;
@@ -9,15 +9,23 @@ public abstract class InteractorBase implements Interactor{
 	private int width;
 	private int height;
 	private Forms form;
-	
-	
 
-	public InteractorBase(InteractorDetails interactor, Forms form) {
+	public InteractorBase(InteractorDetails interactor) {
+		this.interactor = interactor;
+		width = interactor.width();
+		height = interactor.height();
+		form = interactor.form();
+
+	}
+
+	public InteractorBase(InteractorDetails interactor, Forms form, int xPos, int yPos) {
+		this.xPos = xPos;
+		this.yPos = yPos;
 		this.interactor = interactor;
 		width = interactor.width();
 		height = interactor.height();
 		this.form = form;
-		
+
 	}
 
 	public int getxPos() {
@@ -40,8 +48,8 @@ public abstract class InteractorBase implements Interactor{
 		return rotation;
 	}
 
-	public void setRotation(int rotation) {
-		this.rotation = rotation;
+	public void setRotation(int degrees) {
+		this.rotation = degrees;
 	}
 
 	public boolean isToBeRemoved() {
@@ -59,9 +67,9 @@ public abstract class InteractorBase implements Interactor{
 	public void setInteractor(Interactors interactor) {
 		this.interactor = interactor;
 	}
-	
-	public int [] getPositionsSend() {
-		int[] result = {interactor.subType(), xPos, yPos, width, height, rotation / 30, form.sendValue()};
+
+	public int[] getPositionsSend() {
+		int[] result = { interactor.subType(), xPos, yPos, width, height, rotation / 30, form.sendValue() };
 		return result;
 	}
 
@@ -84,7 +92,12 @@ public abstract class InteractorBase implements Interactor{
 	public void setInteractor(InteractorDetails interactor) {
 		this.interactor = interactor;
 	}
+
 	public Forms getForm() {
 		return form;
+	}
+
+	public void setForm(Forms form) {
+		this.form = form;
 	}
 }

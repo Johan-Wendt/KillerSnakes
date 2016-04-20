@@ -2,10 +2,8 @@ package rest;
 
 public class PlayerHuman extends PlayerBase {
 	
-	public PlayerHuman(Players player, Forms form) {
-		super(player, form);
-	super.setxPos(300);
-	super.setyPos(400);
+	public PlayerHuman(Players player) {
+		super(player);
 	}
 
 

@@ -32,6 +32,12 @@ public enum Interactors implements InteractorDetails{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Forms form() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 
