@@ -5,6 +5,6 @@ public interface Constants {
 	public static final int GAME_HERTZ = 60;
 	
 	//SubType, xPos, yPos
-	public static final int INTS_SENT_PER_OBJECT = 3;
+	public static final int INTS_SENT_PER_OBJECT = 7;
 
 }

@@ -3,8 +3,8 @@ package rest;
 public abstract class TurnerBase extends MoverBase implements Turner {
 	private Directions currentDirection;
 
-	public TurnerBase(InteractorDetails interactor) {
-		super(interactor);
+	public TurnerBase(InteractorDetails interactor, Forms form) {
+		super(interactor, form);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ public interface Interactor {
 	public int getxPos();
 	public void setyPos(int newX);
 	public int getyPos();
+	public Forms getForm();
 	
 
 }

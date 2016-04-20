@@ -8,11 +8,15 @@ public abstract class InteractorBase implements Interactor{
 	private InteractorDetails interactor;
 	private int width;
 	private int height;
+	private Forms form;
 	
-	public InteractorBase(InteractorDetails interactor) {
+	
+
+	public InteractorBase(InteractorDetails interactor, Forms form) {
 		this.interactor = interactor;
 		width = interactor.width();
 		height = interactor.height();
+		this.form = form;
 		
 	}
 
@@ -57,7 +61,7 @@ public abstract class InteractorBase implements Interactor{
 	}
 	
 	public int [] getPositionsSend() {
-		int[] result = {interactor.type(), interactor.subType(), xPos, yPos};
+		int[] result = {interactor.subType(), xPos, yPos, width, height, rotation / 30, form.sendValue()};
 		return result;
 	}
 
@@ -79,5 +83,8 @@ public abstract class InteractorBase implements Interactor{
 
 	public void setInteractor(InteractorDetails interactor) {
 		this.interactor = interactor;
+	}
+	public Forms getForm() {
+		return form;
 	}
 }

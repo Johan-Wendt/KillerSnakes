@@ -2,8 +2,8 @@ package rest;
 
 public abstract class GrowerBase extends TurnerBase implements Grower {
 
-	public GrowerBase(InteractorDetails interactor) {
-		super(interactor);
+	public GrowerBase(InteractorDetails interactor, Forms form) {
+		super(interactor, form);
 		// TODO Auto-generated constructor stub
 	}
 

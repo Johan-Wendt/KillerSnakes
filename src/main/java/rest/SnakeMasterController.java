@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import com.google.common.primitives.Bytes;
 
-public class SnakeMasterController implements MasterController{
+public class SnakeMasterController implements MasterController {
 	// private GameBoardController gameBoardController = new
 	// GameBoardController();
 	// private BonusController bonusController = new BonusController();
@@ -16,7 +16,7 @@ public class SnakeMasterController implements MasterController{
 	private PlayerController playerController;
 	private GameLoop gameLoop;
 	private HumanTouch socket;
-	private ArrayList<TypeController> controllers = new  ArrayList<>();
+	private ArrayList<TypeController> controllers = new ArrayList<>();
 
 	public SnakeMasterController(HumanTouch socket) {
 
@@ -30,7 +30,7 @@ public class SnakeMasterController implements MasterController{
 		playerController.createPlayerAI();
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
-		
+
 		controllers.add(playerController);
 	}
 
@@ -85,17 +85,29 @@ public class SnakeMasterController implements MasterController{
 		return baos.toByteArray();
 	}
 
-	private void sendMessage(int[] message)  {
+	private void sendMessage(int[] message) {
 		byte[] byteMessage = integersToBytes(message);
 
 		ByteBuffer buf = ByteBuffer.wrap(byteMessage);
 		socket.updatePlayer(buf);
 
 	}
+
 	public int[] getAllPositionsSend() {
-		int[] result = new int[0];
-		for(TypeController controller: controllers) {
-			result = HelperMethods.intConcatenator(result, controller.getAllPositionsSend());
+		int resultSize = 0;
+		for (TypeController controller : controllers) {
+			resultSize += controller.getActingObjects().size() * Constants.INTS_SENT_PER_OBJECT + 2;
+		}
+		int[] result = new int[resultSize];
+		int pointer = 0;
+		for (TypeController controller : controllers) {
+			int[] tempResult = controller.getAllPositionsSend();
+			int n = 0;
+			while (n < tempResult.length) {
+				result[pointer] = tempResult[n];
+				n++;
+				pointer++;
+			}
 		}
 		return result;
 	}
@@ -109,9 +121,7 @@ public class SnakeMasterController implements MasterController{
 	@Override
 	public void takeInput(byte[] input) {
 		// TODO Auto-generated method stub
-		
-	}
 
-	
+	}
 
 }

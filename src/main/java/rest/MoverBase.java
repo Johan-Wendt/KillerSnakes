@@ -4,8 +4,8 @@ public abstract class MoverBase extends ActorBase implements Mover{
 	private Directions steeringDirection;
 	private Directions movingDirection;
 
-	public MoverBase(InteractorDetails interactor) {
-		super(interactor);
+	public MoverBase(InteractorDetails interactor, Forms form) {
+		super(interactor, form);
 	}
 	
 	@Override
@@ -16,6 +16,8 @@ public abstract class MoverBase extends ActorBase implements Mover{
 	
 	@Override
 	public void move() {
+		super.setxPos(getNextxStep());
+		super.setyPos(getNextyStep());
 		
 		
 	}
@@ -26,5 +28,10 @@ public abstract class MoverBase extends ActorBase implements Mover{
 		return super.getyPos() + steeringDirection.getyMultiplier() * getHeight();
 	}
 	
+	public void setMovingDirection(Directions direction) {
+		movingDirection = direction;
+	}
+	Sätta constructors för interactor med xpos, ypos. En linje ska vara utan (för player som har det i details)
+	Sen ska mover ha directions i consturtor. Direction behöver påverka rotation!
 
 }
