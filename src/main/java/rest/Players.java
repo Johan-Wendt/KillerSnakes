@@ -60,12 +60,13 @@ public enum Players implements PlayerDetails {
 	@Override
 	public Forms form() {
 		
+		return Forms.HALF_CIRCKLE;
+	}
+	@Override
+	public Forms tailForm() {
 		return Forms.RECTANGLE;
 	}
 	
-	public Forms headForm() {
-		return Forms.HALF_CIRCKLE;
-	}
 	public int startX() {
 		return startX;
 	}
