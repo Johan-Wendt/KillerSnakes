@@ -46,11 +46,11 @@ public class HumanTouch {
 	 **/
 	@OnWebSocketMessage
 	public void onMessage(Reader reader) throws IOException {
-		char[] bpa = new char[3];
-		reader.read(bpa, 0, 3);
-		int[] realResult = numberify(bpa);
+		char[] input = new char[3];
+		reader.read(input, 0, 3);
+		int[] realResult = numberify(input);
 
-//		masterController.handleInput(realResult);
+		masterController.handleInput(realResult);
 	}
 
 	public static int[] numberify(char[] arr) {

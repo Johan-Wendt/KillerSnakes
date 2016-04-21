@@ -26,6 +26,24 @@ public enum Directions {
 	public int getDegreesTurned() {
 		return degreesTurned;
 	}
+	public static Directions getDirection(int degrees) {
+		switch(degrees) {
+		case 0: return UP;
+		case 90: return RIGHT;
+		case 180: return DOWN;
+		case 270: return LEFT;
+		default: return UP;
+		}
+	}
+	public static Directions getDirection(byte clientRequest) {
+		switch(clientRequest) {
+		case 1: return UP;
+		case 2: return RIGHT;
+		case 3: return DOWN;
+		case 4: return LEFT;
+		default: return UP;
+		}
+	}
 
 
 }

@@ -1,7 +1,6 @@
 package rest;
 
 public abstract class MoverBase extends ActorBase implements Mover{
-	private Directions steeringDirection;
 	private Directions movingDirection;
 
 	public MoverBase(InteractorDetails interactor) {
@@ -35,6 +34,9 @@ public abstract class MoverBase extends ActorBase implements Mover{
 	public void setMovingDirection(Directions direction) {
 		movingDirection = direction;
 		super.setRotation(direction.getDegreesTurned());
+	}
+	public Directions getMovingDirection() {
+		return movingDirection;
 	}
 
 

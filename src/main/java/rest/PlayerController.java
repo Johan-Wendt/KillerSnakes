@@ -22,9 +22,9 @@ public class PlayerController extends TypeControllerBase{
 		}
 	}
 
-	public void turnPlayer(Players player, Directions direction) {
+	public void turnPlayer(Players player, Directions newDirection) {
 		PlayerBase playerBase = (PlayerBase) super.getActingObjects().get(player.ordinal());
-		playerBase.turn(direction);
+		playerBase.steer(newDirection);
 	}
 
 	//public void shoot(WeaponController weaponController, byte player) {

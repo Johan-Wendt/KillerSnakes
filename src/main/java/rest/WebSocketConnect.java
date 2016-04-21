@@ -6,7 +6,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 public class WebSocketConnect {
 	public static void main(String[] args) throws Exception {
-		Server server = new Server(9014);
+		Server server = new Server(9016);
 		WebSocketHandler wsHandler = new WebSocketHandler() {
 			@Override
 			public void configure(WebSocketServletFactory factory) {

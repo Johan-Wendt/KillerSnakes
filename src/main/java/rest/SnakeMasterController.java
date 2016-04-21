@@ -27,7 +27,7 @@ public class SnakeMasterController implements MasterController {
 
 		// Just contemporary
 		playerController.createPlayer();
-		playerController.createPlayerAI();
+	//	playerController.createPlayerAI();
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
 
@@ -51,7 +51,7 @@ public class SnakeMasterController implements MasterController {
 		// Third byte is additional info (like turn direction)
 
 		if (input[1] == 1) {
-			// snakeController.turnPlayer(input[0], (byte) input[2]);
+			playerController.turnPlayer(Players.getPlayer((byte) input[0]), Directions.getDirection((byte) input[2]));
 		}
 		if (input[1] == 2) {
 			gameLoop.pause();
