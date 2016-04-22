@@ -16,5 +16,7 @@ public interface TypeController extends Controller {
 	public void setTypeControlled(Types type);
 	
 	public int getTypeControlled();
+	
+	public int getLength();
 
 }

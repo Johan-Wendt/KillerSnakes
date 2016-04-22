@@ -8,17 +8,19 @@ public enum Players implements PlayerDetails {
 	private final int heigth;
 	private final int subType;
 	private final Directions startDirection;
-	private final int startSpeed;
+	private final int startActingSpeed;
+	private final int startMovingSpeed;
 	private final int startLength;
 	private final int startX;
 	private final int startY;
 
 	Players(int subType, Directions startDirection, int startX,int startY) {
 		type = 1;
-		startSpeed = 10;
+		startActingSpeed = 60;
+		startMovingSpeed = 3;
 		width = 12;
 		heigth = 3;
-		startLength = 8;
+		startLength = 40;
 		this.subType = subType;
 		this.startDirection = startDirection;
 		this.startX = startX;
@@ -46,14 +48,18 @@ public enum Players implements PlayerDetails {
 	public Directions startDirection() {
 		return startDirection;
 	}
-
-	public int startSpeed() {
-		return startSpeed;
+	@Override
+	public int startActingSpeed() {
+		return startActingSpeed;
+	}
+	@Override
+	public int startMovingSpeed() {
+		return startMovingSpeed;
 	}
 
 
 	@Override
-	public int length() {
+	public int startLength() {
 		return startLength;
 	}
 

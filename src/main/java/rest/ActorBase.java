@@ -31,6 +31,9 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	public int getActingSpeed(){
 		return actingSpeed;
 	}
+	public int getLength() {
+		return 1;
+	}
 	
 
 }

@@ -27,11 +27,10 @@ public enum Interactors implements InteractorDetails{
 		return 0;
 	}
 	
-	@Override
-	public int length() {
+//	public int length() {
 		// TODO Auto-generated method stub
-		return 0;
-	}
+	//	return 0;
+//	}
 
 	@Override
 	public Forms form() {

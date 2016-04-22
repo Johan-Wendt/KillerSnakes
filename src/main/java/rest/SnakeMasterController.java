@@ -96,7 +96,7 @@ public class SnakeMasterController implements MasterController {
 	public int[] getAllPositionsSend() {
 		int resultSize = 0;
 		for (TypeController controller : controllers) {
-			resultSize += controller.getActingObjects().size() * Constants.INTS_SENT_PER_OBJECT + 2;
+			resultSize += controller.getLength() * Constants.INTS_SENT_PER_OBJECT + 2;
 		}
 		int[] result = new int[resultSize];
 		int pointer = 0;

@@ -8,9 +8,14 @@ public abstract class PlayerBase extends GrowerBase implements Player{
 		super.setxPos(player.startX());
 		super.setyPos(player.startY());
 		super.setForm(player.form());
-		super.setActingSpeed(player.startSpeed());
+		super.setActingSpeed(player.startActingSpeed());
 		super.setSteeringDirection(player.startDirection());
+		super.setMovingSpeed(player.startMovingSpeed());
 		
+	}
+	public PlayerBase(GrowerDetails player, boolean head) {
+		super(player, head);
+
 	}
 	
 	@Override

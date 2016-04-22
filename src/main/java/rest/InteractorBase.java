@@ -1,9 +1,9 @@
 package rest;
 
 public abstract class InteractorBase implements Interactor {
-	private int xPos;
-	private int yPos;
-	private int rotation;
+	private double xPos;
+	private double yPos;
+	private double rotation;
 	private boolean toBeRemoved = false;
 	private InteractorDetails interactor;
 	private int width;
@@ -28,27 +28,33 @@ public abstract class InteractorBase implements Interactor {
 
 	}
 
-	public int getxPos() {
+	public double getxPos() {
 		return xPos;
 	}
 
-	public void setxPos(int xPos) {
+	public void setxPos(double xPos) {
 		this.xPos = xPos;
 	}
 
-	public int getyPos() {
+	public double getyPos() {
 		return yPos;
 	}
 
-	public void setyPos(int yPos) {
+	public void setyPos(double yPos) {
 		this.yPos = yPos;
 	}
 
-	public int getRotation() {
+	public double getRotation() {
 		return rotation;
 	}
 
-	public void setRotation(int degrees) {
+	public void setRotation(double degrees) {
+		while(degrees < 0) {
+			degrees += 360;
+		}
+		while(degrees > 360) {
+			degrees -= 360;
+		}
 		this.rotation = degrees;
 	}
 
@@ -69,7 +75,7 @@ public abstract class InteractorBase implements Interactor {
 	}
 
 	public int[] getPositionsSend() {
-		int[] result = { interactor.subType(), xPos, yPos, width, height, rotation / 30, form.sendValue() };
+		int[] result = { interactor.subType(), (int) xPos, (int) yPos, width, height, (int) (rotation / 30), form.sendValue() };
 		return result;
 	}
 

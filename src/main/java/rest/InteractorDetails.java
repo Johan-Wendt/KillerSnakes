@@ -9,7 +9,7 @@ public interface InteractorDetails {
 	public int subType();
 	public int width ();
 	public int height ();
-	public int length();
+	//public int length();
 	public Forms form();
 	
 	

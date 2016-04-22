@@ -5,6 +5,7 @@ import java.util.LinkedList;
 public abstract class TurnerBase extends MoverBase implements Turner {
 	private Directions steeringDirection;
 	private LinkedList<Integer> turnInstructions = new LinkedList<>();
+	private int stepsPerTurn = 6;
 
 	public TurnerBase(InteractorDetails interactor) {
 		super(interactor);
@@ -26,7 +27,7 @@ public abstract class TurnerBase extends MoverBase implements Turner {
 		if (turnInstructions.size() > 0) {
 			super.setRotation(super.getRotation() + turnInstructions.poll());
 			if (super.getRotation() % 90 == 0) {
-				super.setMovingDirection(Directions.getDirection(super.getRotation()));
+				super.setMovingDirection(Directions.getDirection((int) super.getRotation()));
 			}
 		}
 
@@ -49,9 +50,16 @@ public abstract class TurnerBase extends MoverBase implements Turner {
 
 	private void addToTurnInstructions(Directions newDirection) {
 		//Integer degreesPerTurn = (newDirection.getxMultiplier() + newDirection.getyMultiplier()) * 30;
-		Integer degreesPerTurn = (newDirection.getDegreesTurned() - steeringDirection.getDegreesTurned()) / 3;
+		int totalTurn = (newDirection.getDegreesTurned() - steeringDirection.getDegreesTurned());
+		if(totalTurn > 90) {
+			totalTurn -= 360;
+		}
+		if(totalTurn < -90) {
+			totalTurn += 360;
+		}
+		Integer degreesPerTurn = totalTurn / stepsPerTurn;
 		int n = 0;
-		while (n < 3) {
+		while (n < stepsPerTurn) {
 			turnInstructions.add(degreesPerTurn);
 			n ++;
 		}

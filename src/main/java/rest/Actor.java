@@ -8,5 +8,6 @@ public interface Actor extends Interactor {
 	public void setActingSpeed(int newSpeed);
 	public int getActingSpeed();
 	public void gameRound();
+	public int getLength();
 
 }

@@ -22,7 +22,9 @@ public abstract class TypeControllerBase implements TypeController {
 	}
 
 	public int[] getAllPositionsSend() {
-		int[] result = new int[1 + actingObjects.size() * Constants.INTS_SENT_PER_OBJECT + 1];
+		int length = getLength();
+		
+		int[] result = new int[1 + length * Constants.INTS_SENT_PER_OBJECT + 1];
 		result[0] = getTypeControlled();
 		int pointer = 1;
 		for(Actor actor: actingObjects) {
@@ -70,6 +72,13 @@ public void setTypeControlled(Types type) {
 	
 	public int getTypeControlled() {
 		return typesControlled;
+	}
+	public int getLength() {
+		int length = 0;
+		for(Actor actor: actingObjects) {
+			length += actor.getLength();
+		}
+		return length;
 	}
 
 }
