@@ -9,5 +9,6 @@ public interface Actor extends Interactor {
 	public int getActingSpeed();
 	public void gameRound();
 	public int getLength();
+	public void setInvincible(int rounds);
 
 }

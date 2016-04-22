@@ -1,27 +1,69 @@
 package rest;
 
-public abstract class PlayerBase extends GrowerBase implements Player{
+public abstract class PlayerBase extends GrowerBase implements Player {
 
 	public PlayerBase(Players player) {
 		super(player);
-		super.setMovingDirection(player.startDirection());
-		super.setxPos(player.startX());
-		super.setyPos(player.startY());
+		reStart();
 		super.setForm(player.form());
 		super.setActingSpeed(player.startActingSpeed());
 		super.setSteeringDirection(player.startDirection());
 		super.setMovingSpeed(player.startMovingSpeed());
-		
+
 	}
-	public PlayerBase(GrowerDetails player, boolean head) {
+
+	public PlayerBase(PlayerDetails player, boolean head) {
 		super(player, head);
 
 	}
-	
+
 	@Override
 	public void handleCrashing(Interactor victim) {
-		// TODO Auto-generated method stub
 		
+		int type = victim.getInteractor().type();
+		switch (type) {
+		case Constants.PLAYER:
+			if (!(super.isInvincible())) {
+				GrowerTail tail = (GrowerTail) victim;
+				System.out.println(tail.getLength(0));
+				System.out.println(victim.equals(this));
+				System.out.println("Bang!");
+				deathPenalty();
+				break;
+			}
+
+		}
+
+	}
+
+	private void deathPenalty() {
+		reStart();
+
+	}
+
+	private void reStart() {
+		super.setMovingDirection(getPlayerDetails().startDirection());
+		super.setxPos(getPlayerDetails().startX());
+		super.setyPos(getPlayerDetails().startY());
+		super.setSteeringDirection(getPlayerDetails().startDirection());
+		super.setInvincible(30);
+	}
+
+	@Override
+	public void handleGettingCrashed(Interactor violator) {
+		int type = violator.getInteractor().type();
+		switch (type) {
+		case Constants.PLAYER:
+			break;
+
+		}
+		// TODO Auto-generated method stub
+
+	}
+
+	public PlayerDetails getPlayerDetails() {
+		PlayerDetails result = (PlayerDetails) super.getInteractor();
+		return result;
 	}
 
 }

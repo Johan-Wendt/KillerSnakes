@@ -1,11 +1,16 @@
 package rest;
 
-public class GrowerTail extends InteractorBase implements Tail {
+import java.awt.Rectangle;
+import java.awt.Shape;
+
+public class GrowerTail extends InteractorBase implements Tail, Grower {
 	private GrowerBase owner;
 	private GrowerTail tail;
 
 	public GrowerTail(InteractorDetails interactor, GrowerBase owner) {
 		super(interactor);
+	
+		
 		super.setxPos(-10);
 		super.setyPos(-10);
 		this.owner = owner;
@@ -50,29 +55,48 @@ public class GrowerTail extends InteractorBase implements Tail {
 		super.setRotation(rotation);
 	}
 
-	@Override
-	public int[] getPositionsCrash() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void handleGettingCrashed(Mover violator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setLength(int current) {
+	public void setLength(int current, int imunityLength) {
 		if (current > 1) {
 			if (tail == null) {
 				tail = new GrowerTail(super.getInteractor(), owner);
+				if(imunityLength > 0) {
+					tail.setImuneToCrash(owner);
+					imunityLength --;
+				}
 
 			}
-			tail.setLength(current - 1);
+			tail.setLength(current - 1, imunityLength);
 
 		} else {
 			removeAllTails();
 		}
 	}
+	/**
+	@Override
+	public Shape[] getPositionsAllCrash(Shape[] filler, int pointer) {
+		Rectangle crashShape = new Rectangle((int) super.getxPos(),(int) super.getyPos(), super.getHeight(), super.getWidth());
+		rotateCrashShape(crashShape);
+		filler[pointer] = crashShape;
+		pointer ++;
+		return (tail == null) ? filler : tail.getPositionsAllCrash(filler, pointer);
+	}
+**/
+	
+	@Override
+	public void testCrashing(Interactor violator) {
+		super.testCrashing(violator);
+		if(tail != null) {
+			tail.testCrashing(violator);
+		}
+		
+	}
+	@Override
+	public void handleGettingCrashed(Interactor violator) {
 
+	}
+	@Override
+	public void handleCrashing(Interactor violator) {
+		
+	}
 }

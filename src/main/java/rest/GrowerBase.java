@@ -1,6 +1,6 @@
 package rest;
 
-import java.lang.reflect.InvocationTargetException;
+
 
 public abstract class GrowerBase extends TurnerBase implements Grower {
 	private GrowerTail tail;
@@ -8,7 +8,7 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	// Standard constructor
 	public GrowerBase(GrowerDetails grower) {
 		super(grower);
-		setLength(grower.startLength());
+		setLength(grower.startLength(), grower.imunityLength());
 
 	}
 
@@ -40,14 +40,18 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 
 	}
 
-	public void setLength(int newLength) {
+	public void setLength(int newLength, int imunityLength) {
 		if (newLength > 1) {
 			if (tail == null) {
 				tail = new GrowerTail(super.getInteractor(), this);
+				if(imunityLength > 0) {
+					tail.setImuneToCrash(this);
+					imunityLength--;
+				}
 
 			}
 
-			tail.setLength(newLength - 1);
+			tail.setLength(newLength - 1, imunityLength);
 
 		} else {
 			removeAllTails();
@@ -80,6 +84,28 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		filler[pointer + 6] = super.getInteractor().form().sendValue();
 		pointer += 7;
 		return (tail == null) ? filler : tail.getPositionsAllSend(filler, pointer);
+	}
+	/**
+	@Override
+	public Shape[] getPositionsAllCrash(Shape[] filler, int pointer) {
+		Rectangle crashShape = new Rectangle((int) super.getxPos(),(int) super.getyPos(), super.getHeight(), super.getWidth());
+		rotateCrashShape(crashShape);
+		filler[pointer] = crashShape;
+		pointer ++;
+		return (tail == null) ? filler : tail.getPositionsAllCrash(filler, pointer);
+	}
+	**/
+	@Override
+	public void testCrashing(Interactor violator) {
+		super.testCrashing(violator);
+		if(tail != null) {
+			tail.testCrashing(violator);
+		}
+		
+	}
+
+	public GrowerTail getTail() {
+		return tail;
 	}
 
 }

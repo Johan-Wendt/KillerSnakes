@@ -13,11 +13,13 @@ public enum Players implements PlayerDetails {
 	private final int startLength;
 	private final int startX;
 	private final int startY;
+	private final int imunityLength;
 
 	Players(int subType, Directions startDirection, int startX,int startY) {
-		type = 1;
+		type = Constants.PLAYER;
 		startActingSpeed = 60;
-		startMovingSpeed = 3;
+		startMovingSpeed = 1;
+		imunityLength = 20;
 		width = 12;
 		heigth = 3;
 		startLength = 40;
@@ -87,6 +89,12 @@ public enum Players implements PlayerDetails {
 		case 4: return PLAYER4;
 		default: return PLAYER1;
 		}
+	}
+
+	@Override
+	public int imunityLength() {
+		// TODO Auto-generated method stub
+		return imunityLength;
 	}
 
 }

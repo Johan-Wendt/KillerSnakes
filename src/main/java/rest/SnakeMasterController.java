@@ -37,8 +37,13 @@ public class SnakeMasterController implements MasterController {
 	public void gameRound() {
 		// weaponController.act(this);
 		playerController.controllerRound(this);
+		crashCheck();
 		sendOutPut();
 		// bonusController.act(this);
+	}
+
+	private void crashCheck() {
+		testCrashInto(getCrashers());	
 	}
 
 	public void handleInput(int[] input) {
@@ -111,17 +116,25 @@ public class SnakeMasterController implements MasterController {
 		}
 		return result;
 	}
-
 	@Override
-	public Interactor craschCheck(int xPos, int yPos, Interactor interactor) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Interactor> getCrashers() {
+		ArrayList<Interactor> result = new ArrayList<>();
+		for(TypeController controller: controllers) {
+			ArrayList<Interactor> partResult = controller.getCrashers();
+			int n = 0;
+			while(n < partResult.size()) {
+				result.add(partResult.get(n));
+				n++;
+			}
+		}
+		return result;
+	}
+	public void testCrashInto(ArrayList<Interactor> violaters) {
+		for(TypeController controller: controllers) {
+			controller.testCrashInto(violaters);
+		}
 	}
 
-	@Override
-	public void takeInput(byte[] input) {
-		// TODO Auto-generated method stub
 
-	}
 
 }

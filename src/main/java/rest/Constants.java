@@ -6,5 +6,9 @@ public interface Constants {
 	
 	//SubType, xPos, yPos
 	public static final int INTS_SENT_PER_OBJECT = 7;
+	
+	
+	//type constants
+	public static final int PLAYER = 1;
 
 }

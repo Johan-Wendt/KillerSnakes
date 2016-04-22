@@ -1,8 +1,12 @@
 package rest;
 
+import java.util.ArrayList;
+
 public interface Controller {
 	
 	public int[] getAllPositionsSend();
-	public Interactor craschCheck(int xPos,int yPos, Interactor interactor);
+	//public Shape getCrashingPositions();
+	public ArrayList<Interactor> getCrashers();
+	public void testCrashInto(ArrayList<Interactor> violaters);
 
 }

@@ -15,6 +15,7 @@ public abstract class MoverBase extends ActorBase implements Mover{
 	@Override
 	public void act() {
 		move();
+		super.setTestCrashingInto(true);
 		
 	}
 	
