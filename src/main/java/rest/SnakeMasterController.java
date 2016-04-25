@@ -56,15 +56,16 @@ public class SnakeMasterController implements MasterController {
 		// Third byte is additional info (like turn direction)
 
 		if (input[1] == 1) {
-			playerController.turnPlayer(Players.getPlayer((byte) input[0]), Directions.getDirection((byte) input[2]));
+
+			playerController.turnPlayer(Players.getPlayer(input[0]), Directions.getClientDirection(input[2]));
 		}
-		if (input[1] == 2) {
+		else if (input[1] == 2) {
 			gameLoop.pause();
 		}
-		if (input[1] == 3) {
+		else if (input[1] == 3) {
 			// snakeController.shoot(weaponController, (byte) input[0]);
 		}
-		if (input[1] == 4) {
+		else if (input[1] == 4) {
 			// snakeController.changeWeapon((byte) input[0]);
 		}
 	}

@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 
 public interface Interactor {
 	public int[] getPositionsSend();
-	public Rectangle2D getPositionsCrashed();
+	public Shape getPositionsCrashed();
 	public Shape getPositionsCrashing();
 	public void handleGettingCrashed(Interactor violator);
 	public void handleCrashing(Interactor violator);
@@ -24,5 +24,8 @@ public interface Interactor {
 	public void setInvincible(boolean invincible);
 	public Interactor getImuneToCrash();
 	public void setImuneToCrash(Interactor imuneToCrash);
+	public double getRotation();
+	public int getHeight();
+	public int getWidth();
 
 }

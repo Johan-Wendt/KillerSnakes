@@ -35,7 +35,7 @@ public enum Directions {
 		default: return UP;
 		}
 	}
-	public static Directions getDirection(byte clientRequest) {
+	public static Directions getClientDirection(int clientRequest) {
 		switch(clientRequest) {
 		case 1: return UP;
 		case 2: return RIGHT;

@@ -7,6 +7,7 @@ public interface Turner extends Mover{
 	//public void turn(Directions direction);
 	public void steer(Directions newDirection);
 	public void setSteeringDirection(Directions direction);
+	public void emptyTurnInstructions();
 	
 
 }

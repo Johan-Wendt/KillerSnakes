@@ -64,5 +64,8 @@ public abstract class TurnerBase extends MoverBase implements Turner {
 			n ++;
 		}
 	}
+	public void emptyTurnInstructions() {
+		turnInstructions.clear();
+	}
 
 }

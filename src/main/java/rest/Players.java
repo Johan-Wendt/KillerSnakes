@@ -81,7 +81,7 @@ public enum Players implements PlayerDetails {
 	public int startY() {
 		return startY;
 	}
-	public static Players getPlayer(byte clientRequest) {
+	public static Players getPlayer(int clientRequest) {
 		switch(clientRequest) {
 		case 1: return PLAYER1;
 		case 2: return PLAYER2;

@@ -5,9 +5,11 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 	public PlayerBase(Players player) {
 		super(player);
 		reStart();
+
+		
 		super.setForm(player.form());
 		super.setActingSpeed(player.startActingSpeed());
-		super.setSteeringDirection(player.startDirection());
+		
 		super.setMovingSpeed(player.startMovingSpeed());
 
 	}
@@ -25,9 +27,6 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 		case Constants.PLAYER:
 			if (!(super.isInvincible())) {
 				GrowerTail tail = (GrowerTail) victim;
-				System.out.println(tail.getLength(0));
-				System.out.println(victim.equals(this));
-				System.out.println("Bang!");
 				deathPenalty();
 				break;
 			}
@@ -47,6 +46,7 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 		super.setyPos(getPlayerDetails().startY());
 		super.setSteeringDirection(getPlayerDetails().startDirection());
 		super.setInvincible(30);
+		super.emptyTurnInstructions();
 	}
 
 	@Override
@@ -57,8 +57,6 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 			break;
 
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	public PlayerDetails getPlayerDetails() {
