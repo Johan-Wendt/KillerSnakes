@@ -1,6 +1,5 @@
 package rest;
 
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.ByteBuffer;
@@ -19,8 +18,9 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 public class HumanTouch {
 	private Session session;
 	private RemoteEndpoint remote;
-//	private GamePlan gamePlan = new GamePlan();
+	// private GamePlan gamePlan = new GamePlan();
 	private SnakeMasterController masterController;
+
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
 		System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);

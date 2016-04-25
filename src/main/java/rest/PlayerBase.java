@@ -6,10 +6,9 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 		super(player);
 		reStart();
 
-		
 		super.setForm(player.form());
 		super.setActingSpeed(player.startActingSpeed());
-		
+
 		super.setMovingSpeed(player.startMovingSpeed());
 
 	}
@@ -21,7 +20,7 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 
 	@Override
 	public void handleCrashing(Interactor victim) {
-		
+
 		int type = victim.getInteractor().type();
 		switch (type) {
 		case Constants.PLAYER:

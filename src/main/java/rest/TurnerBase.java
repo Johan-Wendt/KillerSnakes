@@ -36,6 +36,7 @@ public abstract class TurnerBase extends MoverBase implements Turner {
 	public Directions getSteeringDirection() {
 		return steeringDirection;
 	}
+
 	public void setSteeringDirection(Directions direction) {
 		steeringDirection = direction;
 	}
@@ -49,21 +50,23 @@ public abstract class TurnerBase extends MoverBase implements Turner {
 	}
 
 	private void addToTurnInstructions(Directions newDirection) {
-		//Integer degreesPerTurn = (newDirection.getxMultiplier() + newDirection.getyMultiplier()) * 30;
+		// Integer degreesPerTurn = (newDirection.getxMultiplier() +
+		// newDirection.getyMultiplier()) * 30;
 		int totalTurn = (newDirection.getDegreesTurned() - steeringDirection.getDegreesTurned());
-		if(totalTurn > 90) {
+		if (totalTurn > 90) {
 			totalTurn -= 360;
 		}
-		if(totalTurn < -90) {
+		if (totalTurn < -90) {
 			totalTurn += 360;
 		}
 		Integer degreesPerTurn = totalTurn / stepsPerTurn;
 		int n = 0;
 		while (n < stepsPerTurn) {
 			turnInstructions.add(degreesPerTurn);
-			n ++;
+			n++;
 		}
 	}
+
 	public void emptyTurnInstructions() {
 		turnInstructions.clear();
 	}

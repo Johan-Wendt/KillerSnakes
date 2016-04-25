@@ -1,7 +1,5 @@
 package rest;
 
-
-
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 
 public class GameLoop implements Constants {
@@ -27,7 +25,7 @@ public class GameLoop implements Constants {
 
 	private void gameLoop() {
 		// This value would probably be stored elsewhere.
-	//	final double GAME_HERTZ = Constants.UPDATES_PER_SECOND;
+		// final double GAME_HERTZ = Constants.UPDATES_PER_SECOND;
 		// Calculate how many ns each frame should take for our target game
 		// hertz.
 		final double TIME_BETWEEN_UPDATES = 1000000000 / GAME_HERTZ;
@@ -84,7 +82,8 @@ public class GameLoop implements Constants {
 				// Update the frames we got.
 				int thisSecond = (int) (lastUpdateTime / 1000000000);
 				if (thisSecond > lastSecondTime) {
-				//	System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+					// System.out.println("NEW SECOND " + thisSecond + " " +
+					// frameCount);
 					fps = frameCount;
 					frameCount = 0;
 					lastSecondTime = thisSecond;
@@ -119,9 +118,8 @@ public class GameLoop implements Constants {
 	}
 
 	public void sendPositions() {
-	//	masterController.sendPositions();
+		// masterController.sendPositions();
 	}
-	
 
 	public void pause() {
 
@@ -133,4 +131,3 @@ public class GameLoop implements Constants {
 	}
 
 }
-

@@ -1,7 +1,8 @@
 package rest;
 
 public enum Players implements PlayerDetails {
-	PLAYER1(1, Directions.UP, 100, 100), PLAYER2(2, Directions.DOWN, 140, 140), PLAYER3(3, Directions.RIGHT,180, 180), PLAYER4(4, Directions.LEFT, 220, 220);
+	PLAYER1(1, Directions.UP, 100, 100), PLAYER2(2, Directions.DOWN, 140, 140), PLAYER3(3, Directions.RIGHT, 180,
+			180), PLAYER4(4, Directions.LEFT, 220, 220);
 
 	private final int type;
 	private final int width;
@@ -15,7 +16,7 @@ public enum Players implements PlayerDetails {
 	private final int startY;
 	private final int imunityLength;
 
-	Players(int subType, Directions startDirection, int startX,int startY) {
+	Players(int subType, Directions startDirection, int startX, int startY) {
 		type = Constants.PLAYER;
 		startActingSpeed = 60;
 		startMovingSpeed = 1;
@@ -50,15 +51,16 @@ public enum Players implements PlayerDetails {
 	public Directions startDirection() {
 		return startDirection;
 	}
+
 	@Override
 	public int startActingSpeed() {
 		return startActingSpeed;
 	}
+
 	@Override
 	public int startMovingSpeed() {
 		return startMovingSpeed;
 	}
-
 
 	@Override
 	public int startLength() {
@@ -67,27 +69,35 @@ public enum Players implements PlayerDetails {
 
 	@Override
 	public Forms form() {
-		
+
 		return Forms.HALF_CIRCKLE;
 	}
+
 	@Override
 	public Forms tailForm() {
 		return Forms.RECTANGLE;
 	}
-	
+
 	public int startX() {
 		return startX;
 	}
+
 	public int startY() {
 		return startY;
 	}
+
 	public static Players getPlayer(int clientRequest) {
-		switch(clientRequest) {
-		case 1: return PLAYER1;
-		case 2: return PLAYER2;
-		case 3: return PLAYER3;
-		case 4: return PLAYER4;
-		default: return PLAYER1;
+		switch (clientRequest) {
+		case 1:
+			return PLAYER1;
+		case 2:
+			return PLAYER2;
+		case 3:
+			return PLAYER3;
+		case 4:
+			return PLAYER4;
+		default:
+			return PLAYER1;
 		}
 	}
 

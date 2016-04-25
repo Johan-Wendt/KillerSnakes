@@ -9,8 +9,7 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 
 	public GrowerTail(InteractorDetails interactor, GrowerBase owner) {
 		super(interactor);
-	
-		
+
 		super.setxPos(-10);
 		super.setyPos(-10);
 		this.owner = owner;
@@ -48,21 +47,20 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	public void follow(double xPos, double yPos, double rotation) {
 		if (tail != null) {
 			tail.follow(super.getxPos(), super.getyPos(), super.getRotation());
-			
+
 		}
 		super.setxPos(xPos);
 		super.setyPos(yPos);
 		super.setRotation(rotation);
 	}
 
-
 	public void setLength(int current, int imunityLength) {
 		if (current > 1) {
 			if (tail == null) {
 				tail = new GrowerTail(super.getInteractor(), owner);
-				if(imunityLength > 0) {
+				if (imunityLength > 0) {
 					tail.setImuneToCrash(owner);
-					imunityLength --;
+					imunityLength--;
 				}
 
 			}
@@ -72,31 +70,32 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 			removeAllTails();
 		}
 	}
+
 	/**
-	@Override
-	public Shape[] getPositionsAllCrash(Shape[] filler, int pointer) {
-		Rectangle crashShape = new Rectangle((int) super.getxPos(),(int) super.getyPos(), super.getHeight(), super.getWidth());
-		rotateCrashShape(crashShape);
-		filler[pointer] = crashShape;
-		pointer ++;
-		return (tail == null) ? filler : tail.getPositionsAllCrash(filler, pointer);
-	}
-**/
-	
+	 * @Override public Shape[] getPositionsAllCrash(Shape[] filler, int
+	 *           pointer) { Rectangle crashShape = new Rectangle((int)
+	 *           super.getxPos(),(int) super.getyPos(), super.getHeight(),
+	 *           super.getWidth()); rotateCrashShape(crashShape);
+	 *           filler[pointer] = crashShape; pointer ++; return (tail == null)
+	 *           ? filler : tail.getPositionsAllCrash(filler, pointer); }
+	 **/
+
 	@Override
 	public void testCrashing(Interactor violator) {
 		super.testCrashing(violator);
-		if(tail != null) {
+		if (tail != null) {
 			tail.testCrashing(violator);
 		}
-		
+
 	}
+
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
 
 	}
+
 	@Override
 	public void handleCrashing(Interactor violator) {
-		
+
 	}
 }

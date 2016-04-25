@@ -6,7 +6,6 @@ public enum Types {
 
 	private final int type;
 
-
 	Types(int type) {
 		this.type = type;
 

@@ -1,7 +1,5 @@
 package rest;
 
-
-
 public abstract class GrowerBase extends TurnerBase implements Grower {
 	private GrowerTail tail;
 
@@ -44,7 +42,7 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		if (newLength > 1) {
 			if (tail == null) {
 				tail = new GrowerTail(super.getInteractor(), this);
-				if(imunityLength > 0) {
+				if (imunityLength > 0) {
 					tail.setImuneToCrash(this);
 					imunityLength--;
 				}
@@ -85,23 +83,22 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		pointer += 7;
 		return (tail == null) ? filler : tail.getPositionsAllSend(filler, pointer);
 	}
+
 	/**
-	@Override
-	public Shape[] getPositionsAllCrash(Shape[] filler, int pointer) {
-		Rectangle crashShape = new Rectangle((int) super.getxPos(),(int) super.getyPos(), super.getHeight(), super.getWidth());
-		rotateCrashShape(crashShape);
-		filler[pointer] = crashShape;
-		pointer ++;
-		return (tail == null) ? filler : tail.getPositionsAllCrash(filler, pointer);
-	}
-	**/
+	 * @Override public Shape[] getPositionsAllCrash(Shape[] filler, int
+	 *           pointer) { Rectangle crashShape = new Rectangle((int)
+	 *           super.getxPos(),(int) super.getyPos(), super.getHeight(),
+	 *           super.getWidth()); rotateCrashShape(crashShape);
+	 *           filler[pointer] = crashShape; pointer ++; return (tail == null)
+	 *           ? filler : tail.getPositionsAllCrash(filler, pointer); }
+	 **/
 	@Override
 	public void testCrashing(Interactor violator) {
 		super.testCrashing(violator);
-		if(tail != null) {
+		if (tail != null) {
 			tail.testCrashing(violator);
 		}
-		
+
 	}
 
 	public GrowerTail getTail() {

@@ -27,7 +27,7 @@ public class SnakeMasterController implements MasterController {
 
 		// Just contemporary
 		playerController.createPlayer();
-	//	playerController.createPlayerAI();
+		// playerController.createPlayerAI();
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
 
@@ -43,7 +43,7 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	private void crashCheck() {
-		testCrashInto(getCrashers());	
+		testCrashInto(getCrashers());
 	}
 
 	public void handleInput(int[] input) {
@@ -58,14 +58,11 @@ public class SnakeMasterController implements MasterController {
 		if (input[1] == 1) {
 
 			playerController.turnPlayer(Players.getPlayer(input[0]), Directions.getClientDirection(input[2]));
-		}
-		else if (input[1] == 2) {
+		} else if (input[1] == 2) {
 			gameLoop.pause();
-		}
-		else if (input[1] == 3) {
+		} else if (input[1] == 3) {
 			// snakeController.shoot(weaponController, (byte) input[0]);
-		}
-		else if (input[1] == 4) {
+		} else if (input[1] == 4) {
 			// snakeController.changeWeapon((byte) input[0]);
 		}
 	}
@@ -117,25 +114,25 @@ public class SnakeMasterController implements MasterController {
 		}
 		return result;
 	}
+
 	@Override
 	public ArrayList<Interactor> getCrashers() {
 		ArrayList<Interactor> result = new ArrayList<>();
-		for(TypeController controller: controllers) {
+		for (TypeController controller : controllers) {
 			ArrayList<Interactor> partResult = controller.getCrashers();
 			int n = 0;
-			while(n < partResult.size()) {
+			while (n < partResult.size()) {
 				result.add(partResult.get(n));
 				n++;
 			}
 		}
 		return result;
 	}
+
 	public void testCrashInto(ArrayList<Interactor> violaters) {
-		for(TypeController controller: controllers) {
+		for (TypeController controller : controllers) {
 			controller.testCrashInto(violaters);
 		}
 	}
-
-
 
 }
