@@ -229,6 +229,8 @@ public abstract class InteractorBase implements Interactor {
 				}
 			}
 		}
+		setTestCrashingInto(false);
+		violator.setTestCrashingInto(false);
 
 	}
 
