@@ -23,7 +23,7 @@ public enum Players implements PlayerDetails {
 		type = Constants.PLAYER;
 		startActingSpeed = 60;
 		startMovingSpeed = 1;
-		imunityLength = 20;
+		imunityLength = 10;
 		width = 12;
 		heigth = 3;
 		startLength = 40;

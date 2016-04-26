@@ -63,8 +63,10 @@ public class HappeningController extends TypeControllerBase{
 	}
 
 	private void addHappening(Bonuses bonus) {
-		int xPos = (int) (Math.random() * (Constants.GAME_WIDTH - 2) + 1);
-		int yPos = (int) (Math.random() * (Constants.GAME_HEIGHT - 2) + 1);
+	//	int xPos = (int) (Math.random() * (Constants.GAME_WIDTH - 2) + 1);
+	//	int yPos = (int) (Math.random() * (Constants.GAME_HEIGHT - 2) + 1);
+		int xPos = 100 + (int) (Math.random() * 10);
+		int yPos = 100 + (int) (Math.random() * 10);
 		super.addToActingObjects(new Bonus(bonus, 100, xPos, yPos));
 	}
 

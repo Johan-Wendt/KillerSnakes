@@ -95,9 +95,9 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	@Override
 	public void testCrashing(Interactor violator) {
 		super.testCrashing(violator);
-		if (tail != null) {
-			tail.testCrashing(violator);
-		}
+	//	if (tail != null) {
+	//		tail.testCrashing(violator);
+	//	}
 
 	}
 

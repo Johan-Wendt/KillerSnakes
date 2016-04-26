@@ -255,11 +255,18 @@ public abstract class InteractorBase implements Interactor {
 		// if (borders != null) {
 		if (violator.getCrashBorders().getBoundsInParent().intersects(getCrashBorders().getBoundsInParent())) {
 
-			Shape intersects = Shape.intersect(violator.getCrashBorders(), getCrashBorders());
-
-			if (intersects.getBoundsInParent().getWidth() != -1) {
-				return true;
+		//	Shape intersects = Shape.intersect(violator.getCrashBorders(), getCrashBorders());
+			System.out.println("crash reg");
+			if(this instanceof Tail) {
+				System.out.println("Tail crash");
 			}
+			if(violator instanceof PlayerBase) {
+				System.out.println("With player");
+			}
+
+			//if (intersects.getBoundsInParent().getWidth() != -1) {
+				return true;
+			//}
 		}
 		// }
 		return false;

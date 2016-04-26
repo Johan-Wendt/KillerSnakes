@@ -1,6 +1,6 @@
 package rest;
 
-public abstract class HappeningBase extends ActorBase implements Happening{
+public abstract class HappeningBase extends ActorBase implements Happening {
 	private int age;
 	private int longevity;
 
@@ -13,27 +13,38 @@ public abstract class HappeningBase extends ActorBase implements Happening{
 
 	@Override
 	public void act() {
-		if(age >= 1) {
+		if (age >= 5) {
 			super.setTestCrashingInto(false);
 		}
-		
-		if(age > longevity) {
+
+		if (age > longevity) {
 			super.setToBeRemoved();
 		}
 		age++;
-		
+		System.out.println(super.isTestCrashingInto());
+
 	}
 
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
-		super.setToBeRemoved();
-		
+
+		int type = violator.getInteractor().type();
+
+		switch (type) {
+		case Constants.BONUS:
+			break;
+		default:
+			super.setToBeRemoved();
+			System.out.println("Removed due to crashed into");
+		}
+
 	}
 
 	@Override
 	public void handleCrashing(Interactor violator) {
+		System.out.println("Removed due to crashing into");
 		super.setToBeRemoved();
-		
+
 	}
 
 }

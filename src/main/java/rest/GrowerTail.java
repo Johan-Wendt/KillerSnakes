@@ -83,9 +83,9 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	@Override
 	public void testCrashing(Interactor violator) {
 		super.testCrashing(violator);
-		if (tail != null) {
-			tail.testCrashing(violator);
-		}
+	//	if (tail != null) {
+	//		tail.testCrashing(violator);
+	//	}
 
 	}
 
