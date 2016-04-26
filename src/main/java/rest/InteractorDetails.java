@@ -1,5 +1,6 @@
 package rest;
 
+
 public interface InteractorDetails {
 	// Let's the client know the object kind, classified into a broader
 	// category, e.g. players, bonuses etc.
@@ -15,5 +16,7 @@ public interface InteractorDetails {
 
 	// public int length();
 	public Forms form();
+	
+	public String borders();
 
 }

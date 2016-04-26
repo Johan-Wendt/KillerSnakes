@@ -74,8 +74,8 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 
 	public int[] getPositionsAllSend(int[] filler, int pointer) {
 		filler[pointer] = super.getInteractor().subType();
-		filler[pointer + 1] = (int) super.getxPos();
-		filler[pointer + 2] = (int) super.getyPos();
+		filler[pointer + 1] = Math.round((long) super.getxPos());
+		filler[pointer + 2] = Math.round((long) super.getyPos());
 		filler[pointer + 3] = super.getWidth();
 		filler[pointer + 4] = super.getHeight();
 		filler[pointer + 5] = (int) (super.getRotation() / 30);

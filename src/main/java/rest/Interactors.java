@@ -38,4 +38,10 @@ public enum Interactors implements InteractorDetails {
 		return null;
 	}
 
+	@Override
+	public String borders() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

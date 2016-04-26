@@ -1,6 +1,5 @@
 package rest;
 
-import java.awt.Shape;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,12 +11,12 @@ public abstract class TypeControllerBase implements TypeController {
 		setTypeControlled(type);
 	}
 
-	public void controllerRound(MasterController masterController) {
-		act(masterController);
-		disposeOfRemovables();
+	public void controllerRound() {
+		act();
+	//	disposeOfRemovables();
 	}
 
-	public void act(MasterController masterController) {
+	public void act() {
 		for (Actor actor : actingObjects) {
 			actor.gameRound();
 		}

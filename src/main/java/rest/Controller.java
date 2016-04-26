@@ -10,5 +10,9 @@ public interface Controller {
 	public ArrayList<Interactor> getCrashers();
 
 	public void testCrashInto(ArrayList<Interactor> violaters);
+	
+	public void controllerRound();
+	
+	public void disposeOfRemovables();
 
 }

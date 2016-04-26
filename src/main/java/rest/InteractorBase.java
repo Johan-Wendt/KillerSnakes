@@ -1,12 +1,12 @@
 package rest;
 
-import java.awt.Rectangle;
+//import java.awt.Rectangle;
 //import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
+//import java.awt.geom.AffineTransform;
+//import java.awt.geom.Area;
+//import java.awt.geom.GeneralPath;
+//import java.awt.geom.Path2D;
+//import java.awt.geom.Rectangle2D;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
@@ -19,10 +19,10 @@ public abstract class InteractorBase implements Interactor {
 	private int width;
 	private int height;
 	private Forms form;
-	private boolean TestCrashingInto;
+	private boolean TestCrashingInto = true;
 	private boolean invincible = false;
 	private Interactor imuneToCrash = null;
-	
+
 	private SVGPath borders;
 
 	public InteractorBase(InteractorDetails interactor) {
@@ -30,6 +30,7 @@ public abstract class InteractorBase implements Interactor {
 		width = interactor.width();
 		height = interactor.height();
 		form = interactor.form();
+		setBorders(interactor.borders());
 
 	}
 
@@ -89,7 +90,7 @@ public abstract class InteractorBase implements Interactor {
 	// interactor; }
 
 	public int[] getPositionsSend() {
-		int[] result = { interactor.subType(), (int) xPos, (int) yPos, width, height, (int) (rotation / 30),
+		int[] result = { interactor.subType(), Math.round((long) xPos), Math.round((long) yPos), width, height, (int) (rotation / 30),
 				form.sendValue() };
 		return result;
 	}
@@ -129,32 +130,24 @@ public abstract class InteractorBase implements Interactor {
 	public void setTestCrashingInto(boolean testCrashingInto) {
 		TestCrashingInto = testCrashingInto;
 	}
-
-	@Override
-	public Shape getPositionsCrashed() {
-		// Shape crashShape = rotateCrashShape(new Rectangle((int) xPos, (int)
-		// yPos, height, width));
-		// rotateCrashShape(crashShape);
-		return new Rectangle((int) xPos, (int) yPos, height, width);
-	}
-
-	@Override
-	public Shape getPositionsCrashing() {
-		// Shape crashShape = rotateCrashShape(new Rectangle((int) xPos, (int)
-		// yPos, height, width));
-		// rotateCrashShape(crashShape);
-		return new Rectangle((int) xPos, (int) yPos, height, width);
-	}
-
-	protected Shape rotateCrashShape(Shape crashShape) {
-
-		Path2D.Double path = new Path2D.Double();
-		path.append(crashShape, false);
-		AffineTransform t = new AffineTransform();
-		t.rotate(Math.toRadians(rotation));
-		path.transform(t);
-		return path.createTransformedShape(t);
-	}
+	/**
+	 * @Override public Shape getPositionsCrashed() { // Shape crashShape =
+	 *           rotateCrashShape(new Rectangle((int) xPos, (int) // yPos,
+	 *           height, width)); // rotateCrashShape(crashShape); return new
+	 *           Rectangle((int) xPos, (int) yPos, height, width); }
+	 * 
+	 * @Override public Shape getPositionsCrashing() { // Shape crashShape =
+	 *           rotateCrashShape(new Rectangle((int) xPos, (int) // yPos,
+	 *           height, width)); // rotateCrashShape(crashShape); return new
+	 *           Rectangle((int) xPos, (int) yPos, height, width); }
+	 * 
+	 *           protected Shape rotateCrashShape(Shape crashShape) {
+	 * 
+	 *           Path2D.Double path = new Path2D.Double();
+	 *           path.append(crashShape, false); AffineTransform t = new
+	 *           AffineTransform(); t.rotate(Math.toRadians(rotation));
+	 *           path.transform(t); return path.createTransformedShape(t); }
+	 **/
 
 	/**
 	 * protected void rotateCrashShape(Shape crashShape) {
@@ -163,20 +156,15 @@ public abstract class InteractorBase implements Interactor {
 	 * AffineTransform t = new AffineTransform();
 	 * t.rotate(Math.toRadians(rotation)); path.transform(t); }
 	 **/
-	public void testCrashing(Interactor violator) {
-		if (!(violator.equals(this)) && closeEnoughToCrash(violator)) {
-			if (testAreaIntersection(violator)) {
-				handleGettingCrashed(violator);
-				if (imuneToCrash == null) {
-					violator.handleCrashing(this);
-				} else if (imuneToCrash != violator) {
-					violator.handleCrashing(this);
-				}
-			}
-		}
-
-	}
-
+	/**
+	 * public void testCrashing(Interactor violator) { if
+	 * (!(violator.equals(this)) && closeEnoughToCrash(violator)) { if
+	 * (testAreaIntersection(violator)) { handleGettingCrashed(violator); if
+	 * (imuneToCrash == null) { violator.handleCrashing(this); } else if
+	 * (imuneToCrash != violator) { violator.handleCrashing(this); } } }
+	 * 
+	 * }
+	 **/
 	public boolean isInvincible() {
 		return invincible;
 	}
@@ -193,13 +181,14 @@ public abstract class InteractorBase implements Interactor {
 		this.imuneToCrash = imuneToCrash;
 	}
 
-	public static boolean testIntersection(Shape shapeA, Shape shapeB) {
-		Area areaA = new Area(shapeA);
-		areaA.intersect(new Area(shapeB));
-		return !areaA.isEmpty();
-	}
+	// public static boolean testIntersection(Shape shapeA, Shape shapeB) {
+	// Area areaA = new Area(shapeA);
+	// areaA.intersect(new Area(shapeB));
+	// return !areaA.isEmpty();
+	// }
 
 	// private boolean bs(Shape offender, Shape victim, Interactor violator) {
+	/**
 	private boolean testAreaIntersection(Interactor violator) {
 		Rectangle enemy = new Rectangle(violator.getWidth(), violator.getHeight());
 
@@ -227,6 +216,21 @@ public abstract class InteractorBase implements Interactor {
 		return false;
 
 	}
+	**/
+	public void testCrashing(Interactor violator) {
+		if (!(violator.equals(this)) && closeEnoughToCrash(violator)) {
+
+			if (putOnTop(violator)) {
+				handleGettingCrashed(violator);
+				if (imuneToCrash == null) {
+					violator.handleCrashing(this);
+				} else if (imuneToCrash != violator) {
+					violator.handleCrashing(this);
+				}
+			}
+		}
+
+	}
 
 	private boolean closeEnoughToCrash(Interactor violator) {
 		int largest = width;
@@ -245,60 +249,43 @@ public abstract class InteractorBase implements Interactor {
 		}
 		return false;
 	}
-	
-	private void newCrashsytem() {
-		setBorders();
-		
-		
-		setPosition();
-		
 
-		
-		borders.setRotate(rotation);
-		
-		
-		
-		
-		
-		
+
+	public boolean putOnTop(Interactor violator) {
+		// if (borders != null) {
+		if (violator.getCrashBorders().getBoundsInParent().intersects(getCrashBorders().getBoundsInParent())) {
+
+			Shape intersects = Shape.intersect(violator.getCrashBorders(), getCrashBorders());
+
+			if (intersects.getBoundsInParent().getWidth() != -1) {
+				return true;
+			}
+		}
+		// }
+		return false;
 	}
-	private void setBorders() {
-        borders = new SVGPath();
-        borders.setContent("M0,0 L0,3 12,3 12,0 Z");
-    }
-	protected void setPosition() {
-        if(borders != null) {
-            borders.setTranslateX(xPos);
-            borders.setTranslateY(yPos);
-        }
-    }
-	public boolean putOnTop(Interactor object) {
-        if(borders != null) {
-            if(object.getCrashBorders().getBoundsInParent().intersects(borders.getBoundsInParent()) && !this.equals(object)) { 
 
-                Shape intersects = Shape.intersect(object.getCrashBorders(), getCrashBorders());
-
-                if(intersects.getBoundsInParent().getWidth() !=  -1) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 	public SVGPath getCrashBorders() {
-setBorders();
-		
-		
-		setPosition();
 		
 
-		
+		setPosition();
+
 		borders.setRotate(rotation);
-		
+
 		return borders;
-		
+
 	}
 	
-	
-}
+	private void setBorders(String content) {
+		borders = new SVGPath();
+		borders.setContent(content);
+	}
 
+	protected void setPosition() {
+		if (borders != null) {
+			borders.setTranslateX(xPos);
+			borders.setTranslateY(yPos);
+		}
+	}
+
+}

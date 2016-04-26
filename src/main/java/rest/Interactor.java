@@ -8,9 +8,9 @@ import javafx.scene.shape.SVGPath;
 public interface Interactor {
 	public int[] getPositionsSend();
 
-	public Shape getPositionsCrashed();
+	//public Shape getPositionsCrashed();
 
-	public Shape getPositionsCrashing();
+	//public Shape getPositionsCrashing();
 
 	public void handleGettingCrashed(Interactor violator);
 

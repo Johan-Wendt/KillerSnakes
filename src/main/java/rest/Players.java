@@ -1,5 +1,6 @@
 package rest;
 
+
 public enum Players implements PlayerDetails {
 	PLAYER1(1, Directions.UP, 100, 100), PLAYER2(2, Directions.DOWN, 140, 140), PLAYER3(3, Directions.RIGHT, 180,
 			180), PLAYER4(4, Directions.LEFT, 220, 220);
@@ -14,7 +15,9 @@ public enum Players implements PlayerDetails {
 	private final int startLength;
 	private final int startX;
 	private final int startY;
-	private final int imunityLength;
+	private final int imunityLength; 
+	private final String borders;
+
 
 	Players(int subType, Directions startDirection, int startX, int startY) {
 		type = Constants.PLAYER;
@@ -24,6 +27,8 @@ public enum Players implements PlayerDetails {
 		width = 12;
 		heigth = 3;
 		startLength = 40;
+		borders = "M0,0 L0,3 12,3 12,0 Z";
+		
 		this.subType = subType;
 		this.startDirection = startDirection;
 		this.startX = startX;
@@ -105,6 +110,11 @@ public enum Players implements PlayerDetails {
 	public int imunityLength() {
 		// TODO Auto-generated method stub
 		return imunityLength;
+	}
+
+	@Override
+	public String borders() {
+		return borders;
 	}
 
 }

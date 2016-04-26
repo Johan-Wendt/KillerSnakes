@@ -2,7 +2,8 @@ package rest;
 
 public enum Types {
 
-	PLAYER(1);
+	PLAYER(1),
+	HAPPENING(2);
 
 	private final int type;
 

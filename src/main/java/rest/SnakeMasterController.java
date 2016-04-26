@@ -11,7 +11,7 @@ import com.google.common.primitives.Bytes;
 public class SnakeMasterController implements MasterController {
 	// private GameBoardController gameBoardController = new
 	// GameBoardController();
-	// private BonusController bonusController = new BonusController();
+   // private HappeningController happeningController = new HappeningController(Types.HAPPENING);
 	// private WeaponController weaponController;
 	private PlayerController playerController;
 	private GameLoop gameLoop;
@@ -28,22 +28,38 @@ public class SnakeMasterController implements MasterController {
 		// Just contemporary
 		playerController.createPlayer();
 		// playerController.createPlayerAI();
-		gameLoop = new GameLoop(this);
-		gameLoop.runGameLoop();
 
 		controllers.add(playerController);
+		controllers.add(new HappeningController(Types.HAPPENING));
+		
+		gameLoop = new GameLoop(this);
+		gameLoop.runGameLoop();
 	}
 
 	public void gameRound() {
 		// weaponController.act(this);
-		playerController.controllerRound(this);
+		controllerRound();
 		crashCheck();
+		disposeOfRemovables();
 		sendOutPut();
 		// bonusController.act(this);
+	}
+	
+	public void controllerRound() {
+		for (TypeController controller : controllers) {
+			controller.controllerRound();
+		}
+		
 	}
 
 	private void crashCheck() {
 		testCrashInto(getCrashers());
+	}
+	
+	public void disposeOfRemovables() {
+		for (TypeController controller : controllers) {
+			controller.disposeOfRemovables();
+		}
 	}
 
 	public void handleInput(int[] input) {
