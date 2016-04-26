@@ -56,6 +56,20 @@ public abstract class TypeControllerBase implements TypeController {
 		
 		return result;
 	}
+	public ArrayList<Interactor> getPossibleVictims() {
+		ArrayList<Interactor> result = new ArrayList<>();
+		for (Actor actor : actingObjects) {
+			Interactor[] partResult = actor.getEntireInteractor();
+			int n = 0;
+			while(n < partResult.length) {
+				result.add(partResult[n]);
+				n++;
+			}
+		}
+		
+		return result;
+		
+	}
 
 	public void addToActingObjects(Actor actor) {
 		actingObjects.add(actor);
@@ -93,9 +107,10 @@ public abstract class TypeControllerBase implements TypeController {
 	}
 
 	public void testCrashInto(ArrayList<Interactor> violaters) {
+		ArrayList<Interactor> victims = getPossibleVictims();
 		for (Interactor violater : violaters) {
-			for (Actor actor : actingObjects) {
-				actor.testCrashing(violater);
+			for (Interactor victim : victims) {
+				victim.testCrashing(violater);
 			}
 		}
 	}

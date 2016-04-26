@@ -89,6 +89,13 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 
 	}
 
+	public Interactor[] getInteractorAll(Interactor[] result, int pointer) {
+		result[pointer] = this;
+		pointer ++;
+		return (tail == null) ? result : tail.getInteractorAll(result, pointer);
+		
+	}
+
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
 

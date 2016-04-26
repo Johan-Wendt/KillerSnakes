@@ -16,5 +16,7 @@ public interface TypeController extends Controller {
 	public int getTypeControlled();
 
 	public int getLength();
+	
+	public ArrayList<Interactor> getPossibleVictims();
 
 }

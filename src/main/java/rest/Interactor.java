@@ -53,5 +53,7 @@ public interface Interactor {
 	public int getWidth();
 	
 	public SVGPath getCrashBorders();
+	
+	public Interactor[] getEntireInteractor();
 
 }

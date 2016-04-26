@@ -146,6 +146,7 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	public void testCrashInto(ArrayList<Interactor> violaters) {
+		
 		for (TypeController controller : controllers) {
 			controller.testCrashInto(violaters);
 		}

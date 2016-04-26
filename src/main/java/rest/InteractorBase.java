@@ -294,5 +294,9 @@ public abstract class InteractorBase implements Interactor {
 			borders.setTranslateY(yPos);
 		}
 	}
+	public Interactor[] getEntireInteractor() {
+		Interactor[] result = {this};
+		return result;
+	}
 
 }

@@ -104,5 +104,13 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	public GrowerTail getTail() {
 		return tail;
 	}
+	@Override
+	public Interactor[] getEntireInteractor() {
+		Interactor[] result = new Interactor[getLength()];
+		result[0] = this;
+		int pointer = 1;
+		return (tail == null) ? result : tail.getInteractorAll(result, pointer);
+		
+	}
 
 }
