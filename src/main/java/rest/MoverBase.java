@@ -33,6 +33,16 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	 * getNextyStep() { return super.getyPos() +
 	 * movingDirection.getyMultiplier() * getHeight(); }
 	 **/
+	/**
+	private double getNextxStep() {
+		return super.getxPos() + movingSpeed * getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+	}
+
+	private double getNextyStep() {
+		return super.getyPos() - movingSpeed * getHeight() * Math.cos(Math.toRadians(super.getRotation()));
+	}
+	**/
+	
 	private double getNextxStep() {
 		return super.getxPos() + movingSpeed * getHeight() * Math.sin(Math.toRadians(super.getRotation()));
 	}

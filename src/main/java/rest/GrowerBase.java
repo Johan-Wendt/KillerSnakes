@@ -2,6 +2,8 @@ package rest;
 
 public abstract class GrowerBase extends TurnerBase implements Grower {
 	private GrowerTail tail;
+	private double lastXposDiff;
+	private double lastYposDiff;
 
 	// Standard constructor
 	public GrowerBase(GrowerDetails grower) {
@@ -63,7 +65,7 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 			tail = null;
 		}
 	}
-
+/**
 	@Override
 	public void move() {
 		if (tail != null) {
@@ -71,6 +73,18 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		}
 		super.move();
 
+	}
+	**/
+	public void move() {
+		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
+			tail.followNew(lastXposDiff, lastYposDiff, super.getRotation());
+
+		}
+		double xBeforeMove = getxPos();
+		double yBeforeMove = getyPos();
+		super.move();
+		lastXposDiff = getxPos() - xBeforeMove;
+		lastYposDiff = getyPos() - yBeforeMove;
 	}
 
 	public int[] getPositionsAllSend(int[] filler, int pointer) {
@@ -116,6 +130,25 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	public GrowerDetails getGrower() {
 		GrowerDetails grower = (GrowerDetails) getInteractor();
 		return grower;
+	}
+	@Override
+	public void setxPos(double newX){
+		super.setxPos(newX);
+		if(tail != null) {
+			tail.setxPos(newX);
+		}
+	}
+	public void setyPos(double newY){
+		super.setyPos(newY);
+		if(tail != null) {
+			tail.setyPos(newY);
+		}
+	}
+	public Interactor getLastTail() {
+		if(tail == null) {
+			return this;
+		}
+		return tail.getLastTail();
 	}
 
 }

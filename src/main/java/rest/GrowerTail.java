@@ -6,14 +6,17 @@ import java.awt.Shape;
 public class GrowerTail extends InteractorBase implements Tail, Grower {
 	private GrowerBase owner;
 	private GrowerTail tail;
-	//private double lastXposDiff;
-	//private double lastYposDiff;
+	private double lastXposDiff;
+	private double lastYposDiff;
 
 	public GrowerTail(InteractorDetails interactor, GrowerBase owner) {
 		super(interactor);
 
-		super.setxPos(-10);
-		super.setyPos(-10);
+		
+		
+		super.setxPos(owner.getLastTail().getxPos());
+		super.setyPos(owner.getLastTail().getyPos());
+		super.setRotation(owner.getLastTail().getRotation());
 
 		this.owner = owner;
 	}
@@ -56,9 +59,9 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		super.setyPos(yPos);
 		super.setRotation(rotation);
 	}
-	/**
+	
 	public void followNew(double xPosDiff, double yPosDiff, double rotation) {
-		if (tail != null) {
+		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
 			tail.followNew(lastXposDiff, lastYposDiff, super.getRotation());
 
 		}
@@ -68,7 +71,7 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		lastYposDiff = yPosDiff;
 		super.setRotation(rotation);
 	}
-**/
+
 	public void setLength(int current, int imunityLength) {
 		if (current > 1) {
 			if (tail == null) {
@@ -121,5 +124,25 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	public GrowerDetails getGrower() {
 		//This returns the owner details!!
 		return owner.getGrower();
+	}
+	
+	@Override
+	public void setxPos(double newX){
+		super.setxPos(newX);
+		if(tail != null) {
+			tail.setxPos(newX);
+		}
+	}
+	public void setyPos(double newY){
+		super.setyPos(newY);
+		if(tail != null) {
+			tail.setyPos(newY);
+		}
+	}
+	public Interactor getLastTail() {
+		if(tail == null) {
+			return this;
+		}
+		return tail.getLastTail();
 	}
 }
