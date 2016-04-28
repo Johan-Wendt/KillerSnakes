@@ -48,9 +48,6 @@ public abstract class TypeControllerBase implements TypeController {
 		for (Actor actor : actingObjects) {
 			if (actor.isTestCrashingInto()) {
 				result.add(actor);
-				if(actor instanceof Bonus) {
-					System.out.println("Bonus");
-				}
 			}
 		}
 		

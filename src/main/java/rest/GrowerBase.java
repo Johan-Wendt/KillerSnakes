@@ -56,6 +56,7 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		}
 	}
 
+
 	public void removeAllTails() {
 		if (tail != null) {
 			tail.removeAllTails();
@@ -111,6 +112,10 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		int pointer = 1;
 		return (tail == null) ? result : tail.getInteractorAll(result, pointer);
 		
+	}
+	public GrowerDetails getGrower() {
+		GrowerDetails grower = (GrowerDetails) getInteractor();
+		return grower;
 	}
 
 }

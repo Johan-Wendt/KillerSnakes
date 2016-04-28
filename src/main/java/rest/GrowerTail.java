@@ -6,12 +6,15 @@ import java.awt.Shape;
 public class GrowerTail extends InteractorBase implements Tail, Grower {
 	private GrowerBase owner;
 	private GrowerTail tail;
+	//private double lastXposDiff;
+	//private double lastYposDiff;
 
 	public GrowerTail(InteractorDetails interactor, GrowerBase owner) {
 		super(interactor);
 
 		super.setxPos(-10);
 		super.setyPos(-10);
+
 		this.owner = owner;
 	}
 
@@ -53,7 +56,19 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		super.setyPos(yPos);
 		super.setRotation(rotation);
 	}
+	/**
+	public void followNew(double xPosDiff, double yPosDiff, double rotation) {
+		if (tail != null) {
+			tail.followNew(lastXposDiff, lastYposDiff, super.getRotation());
 
+		}
+		super.setxPos(getxPos() + xPosDiff);
+		super.setyPos(getyPos() + yPosDiff);
+		lastXposDiff = xPosDiff;
+		lastYposDiff = yPosDiff;
+		super.setRotation(rotation);
+	}
+**/
 	public void setLength(int current, int imunityLength) {
 		if (current > 1) {
 			if (tail == null) {
@@ -71,21 +86,13 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		}
 	}
 
-	/**
-	 * @Override public Shape[] getPositionsAllCrash(Shape[] filler, int
-	 *           pointer) { Rectangle crashShape = new Rectangle((int)
-	 *           super.getxPos(),(int) super.getyPos(), super.getHeight(),
-	 *           super.getWidth()); rotateCrashShape(crashShape);
-	 *           filler[pointer] = crashShape; pointer ++; return (tail == null)
-	 *           ? filler : tail.getPositionsAllCrash(filler, pointer); }
-	 **/
 
 	@Override
 	public void testCrashing(Interactor violator) {
-		super.testCrashing(violator);
-	//	if (tail != null) {
-	//		tail.testCrashing(violator);
-	//	}
+		if(!(owner.getTail() == this) || owner.getTail().getTail() == this) {
+			super.testCrashing(violator);
+		}
+		
 
 	}
 
@@ -104,5 +111,15 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	@Override
 	public void handleCrashing(Interactor violator) {
 
+	}
+
+	public GrowerTail getTail() {
+		return tail;
+	}
+
+	@Override
+	public GrowerDetails getGrower() {
+		//This returns the owner details!!
+		return owner.getGrower();
 	}
 }

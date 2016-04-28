@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import com.google.common.primitives.Bytes;
 
 public class SnakeMasterController implements MasterController {
-	// private GameBoardController gameBoardController = new
-	// GameBoardController();
-   // private HappeningController happeningController = new HappeningController(Types.HAPPENING);
-	// private WeaponController weaponController;
+
 	private PlayerController playerController;
 	private GameLoop gameLoop;
 	private HumanTouch socket;
@@ -37,12 +34,10 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	public void gameRound() {
-		// weaponController.act(this);
 		controllerRound();
 		crashCheck();
 		disposeOfRemovables();
 		sendOutPut();
-		// bonusController.act(this);
 	}
 	
 	public void controllerRound() {

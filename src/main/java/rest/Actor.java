@@ -18,5 +18,8 @@ public interface Actor extends Interactor {
 	public int getLength();
 
 	public void setInvincible(int rounds);
+	
+	public int getCurrentActingPoints();
+	public void setCurrentActingPoints(int points);
 
 }

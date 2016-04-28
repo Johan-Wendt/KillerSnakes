@@ -25,11 +25,32 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 		switch (type) {
 		case Constants.PLAYER:
 			if (!(super.isInvincible())) {
-				GrowerTail tail = (GrowerTail) victim;
+				// GrowerTail tail = (GrowerTail) victim;
 				deathPenalty();
 				break;
 			}
+			break;
+		case Constants.BONUS:
+			Bonus bonus = (Bonus) victim;
+			handleBonus(bonus.getBonus());
 
+		}
+
+	}
+
+	private void handleBonus(Bonuses bonus) {
+		setCurrentActingPoints(-6 * getActingSpeed());
+		switch (bonus) {
+		case SPPED:
+			setActingSpeed((getActingSpeed() + 2));
+			break;
+		case GROW:
+			setLength(getLength() + 5, getPlayerDetails().imunityLength());
+			break;
+		case PISTOL:
+			break;
+		case SHOTGUN:
+			break;
 		}
 
 	}

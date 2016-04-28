@@ -15,7 +15,7 @@ package rest;
 		Bonuses(int subType, double chance) {
 			width = 10;
 			heigth = 10;
-			borders = "M0,0 L0,3 12,3 12,0 Z";
+			borders = "M0,0 L0,10 10,10 10,0 Z";
 			type = Constants.BONUS;
 			this.subType = subType;
 			this.chance =chance;

@@ -16,14 +16,15 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	}
 
 	public void gameRound() {
-		if (isTimeToAct()) {
+		currentActingPoints += actingSpeed;
+		while (isTimeToAct()) {
 			act();
 			countDownInvincibility();
 		}
 	}
 
 	public boolean isTimeToAct() {
-		currentActingPoints += actingSpeed;
+		
 		if (currentActingPoints >= actingLimit) {
 			currentActingPoints -= actingLimit;
 			return true;
@@ -55,6 +56,12 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 				super.setInvincible(false);
 			}
 		}
+	}
+	public int getCurrentActingPoints() {
+		return currentActingPoints;
+	}
+	public void setCurrentActingPoints(int points) {
+		currentActingPoints = points;
 	}
 
 }
