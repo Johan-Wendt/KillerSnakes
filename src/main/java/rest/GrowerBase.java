@@ -2,13 +2,15 @@ package rest;
 
 public abstract class GrowerBase extends TurnerBase implements Grower {
 	private GrowerTail tail;
-	private double lastXposDiff;
-	private double lastYposDiff;
+	private double lastXpos;
+	private double lastYpos;
+	private double lastRotation;
 
 	// Standard constructor
 	public GrowerBase(GrowerDetails grower) {
 		super(grower);
 		setLength(grower.startLength(), grower.imunityLength());
+		lastRotation = super.getRotation();
 
 	}
 
@@ -76,17 +78,20 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	}
 	**/
 	public void move() {
+		
 		super.move();
 		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
-			tail.followNew(getLastxPart(), getLastyPart(), super.getRotation());
+			tail.followNew(getLastxPart(), getLastyPart(), lastRotation);
 
 		}
 		
+		
+		lastRotation = super.getRotation();
 		//double xBeforeMove = getxPos();
 		//double yBeforeMove = getyPos();
 	//	super.move();
-		//lastXposDiff = getxPos() - xBeforeMove;
-		//lastYposDiff = getyPos() - yBeforeMove;
+		lastXpos = getxPos();
+		lastYpos = getyPos();
 	}
 
 	public int[] getPositionsAllSend(int[] filler, int pointer) {
@@ -153,10 +158,14 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		return tail.getLastTail();
 	}
 	private double getLastxPart() {
+		System.out.println("Current xpos Base = " + super.getxPos());
+		System.out.println("lastX base = " + (super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()))));
 		return super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()));
 	}
 
 	private double getLastyPart() {
+		System.out.println("Current ypos Base = " + super.getyPos());
+		System.out.println("lastY base = " + (super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()))));
 		return super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()));
 	}
 

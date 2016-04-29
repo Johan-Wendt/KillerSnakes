@@ -6,6 +6,7 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	private GrowerTail tail;
 	private double lastXposDiff;
 	private double lastYposDiff;
+	private double lastRotation;
 
 	public GrowerTail(InteractorDetails interactor, GrowerBase owner) {
 		super(interactor);
@@ -15,7 +16,7 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		super.setxPos(owner.getLastTail().getxPos());
 		super.setyPos(owner.getLastTail().getyPos());
 		super.setRotation(owner.getLastTail().getRotation());
-
+		
 		this.owner = owner;
 	}
 
@@ -61,10 +62,12 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 	public void followNew(double xPos, double yPos, double rotation) {
 		super.setxPos(xPos);
 		super.setyPos( yPos);
+		super.setRotation(rotation);
 		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
-			tail.followNew(getLastxPart(), getLastxPart(), super.getRotation());
+			tail.followNew(getLastxPart(), getLastyPart(), lastRotation);
 
 		}
+		lastRotation = super.getRotation();
 
 	}
 
