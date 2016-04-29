@@ -44,11 +44,11 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	**/
 	
 	private double getNextxStep() {
-		return super.getxPos() + movingSpeed * getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+		return super.getxPos() + movingSpeed * Math.sin(Math.toRadians(super.getRotation()));
 	}
 
 	private double getNextyStep() {
-		return super.getyPos() - movingSpeed * getHeight() * Math.cos(Math.toRadians(super.getRotation()));
+		return super.getyPos() - movingSpeed * Math.cos(Math.toRadians(super.getRotation()));
 	}
 
 	public void setMovingDirection(Directions direction) {

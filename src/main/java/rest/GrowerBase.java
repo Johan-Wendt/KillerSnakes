@@ -76,15 +76,17 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 	}
 	**/
 	public void move() {
+		super.move();
 		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
-			tail.followNew(lastXposDiff, lastYposDiff, super.getRotation());
+			tail.followNew(getLastxPart(), getLastyPart(), super.getRotation());
 
 		}
-		double xBeforeMove = getxPos();
-		double yBeforeMove = getyPos();
-		super.move();
-		lastXposDiff = getxPos() - xBeforeMove;
-		lastYposDiff = getyPos() - yBeforeMove;
+		
+		//double xBeforeMove = getxPos();
+		//double yBeforeMove = getyPos();
+	//	super.move();
+		//lastXposDiff = getxPos() - xBeforeMove;
+		//lastYposDiff = getyPos() - yBeforeMove;
 	}
 
 	public int[] getPositionsAllSend(int[] filler, int pointer) {
@@ -149,6 +151,13 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 			return this;
 		}
 		return tail.getLastTail();
+	}
+	private double getLastxPart() {
+		return super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+	}
+
+	private double getLastyPart() {
+		return super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()));
 	}
 
 }

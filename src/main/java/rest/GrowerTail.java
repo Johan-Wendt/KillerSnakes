@@ -1,7 +1,5 @@
 package rest;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
 
 public class GrowerTail extends InteractorBase implements Tail, Grower {
 	private GrowerBase owner;
@@ -60,16 +58,14 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 		super.setRotation(rotation);
 	}
 	
-	public void followNew(double xPosDiff, double yPosDiff, double rotation) {
+	public void followNew(double xPos, double yPos, double rotation) {
+		super.setxPos(xPos);
+		super.setyPos( yPos);
 		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
-			tail.followNew(lastXposDiff, lastYposDiff, super.getRotation());
+			tail.followNew(getLastxPart(), getLastxPart(), super.getRotation());
 
 		}
-		super.setxPos(getxPos() + xPosDiff);
-		super.setyPos(getyPos() + yPosDiff);
-		lastXposDiff = xPosDiff;
-		lastYposDiff = yPosDiff;
-		super.setRotation(rotation);
+
 	}
 
 	public void setLength(int current, int imunityLength) {
@@ -144,5 +140,12 @@ public class GrowerTail extends InteractorBase implements Tail, Grower {
 			return this;
 		}
 		return tail.getLastTail();
+	}
+	private double getLastxPart() {
+		return super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+	}
+
+	private double getLastyPart() {
+		return super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()));
 	}
 }
