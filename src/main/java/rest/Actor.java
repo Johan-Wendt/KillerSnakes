@@ -21,5 +21,8 @@ public interface Actor extends Interactor {
 	
 	public int getCurrentActingPoints();
 	public void setCurrentActingPoints(int points);
+	
+	public int getTimesActed();
+	public void setTimesActed(int times);
 
 }

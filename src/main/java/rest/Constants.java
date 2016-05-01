@@ -10,6 +10,7 @@ public interface Constants {
 	// type constants
 	public static final int PLAYER = 1;
 	public static final int BONUS = 2;
+	public static final int PROJECTILE = 3;
 	
 	
 	//Game board

@@ -11,6 +11,7 @@ import com.google.common.primitives.Bytes;
 public class SnakeMasterController implements MasterController {
 
 	private PlayerController playerController;
+	private ProjectileController projectileController;
 	private GameLoop gameLoop;
 	private HumanTouch socket;
 	private ArrayList<TypeController> controllers = new ArrayList<>();
@@ -20,6 +21,7 @@ public class SnakeMasterController implements MasterController {
 		this.socket = socket;
 
 		playerController = new PlayerController(Types.PLAYER);
+		projectileController = new ProjectileController(Types.PROJECTILE);
 		// weaponController = new WeaponController(this);
 
 		// Just contemporary
@@ -28,14 +30,16 @@ public class SnakeMasterController implements MasterController {
 
 		controllers.add(playerController);
 		controllers.add(new HappeningController(Types.HAPPENING));
+		controllers.add(projectileController);
 		
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
 	}
 
 	public void gameRound() {
-		controllerRound();
 		crashCheck();
+		controllerRound();
+		//crashCheck();
 		disposeOfRemovables();
 		sendOutPut();
 	}
@@ -72,7 +76,7 @@ public class SnakeMasterController implements MasterController {
 		} else if (input[1] == 2) {
 			gameLoop.pause();
 		} else if (input[1] == 3) {
-			// snakeController.shoot(weaponController, (byte) input[0]);
+			playerController.shoot(projectileController, Players.getPlayer(input[0]));
 		} else if (input[1] == 4) {
 			// snakeController.changeWeapon((byte) input[0]);
 		}

@@ -11,5 +11,4 @@ public interface Mover extends Actor {
 	public void setMovingSpeed(int speed);
 
 	public int getMovingSpeed();
-
 }

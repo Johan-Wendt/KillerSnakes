@@ -1,25 +1,23 @@
 package rest;
 
-public abstract class GrowerBase extends TurnerBase implements Grower {
+public abstract class GrowerBase extends TurnerBase implements Grower, Slave {
 	private GrowerTail tail;
-	private double lastXpos;
-	private double lastYpos;
-	private double lastRotation;
+	private Interactor owner;
 
 	// Standard constructor
+	public GrowerBase() {
+	}
+	
 	public GrowerBase(GrowerDetails grower) {
 		super(grower);
-		setLength(grower.startLength(), grower.imunityLength());
-		lastRotation = super.getRotation();
-
 	}
 
-	public GrowerBase(GrowerDetails grower, boolean head) {
-		super(grower);
-		if (!head) {
-			super.setForm(grower.tailForm());
-		}
-	}
+	//public GrowerBase(GrowerDetails grower, boolean head) {
+	//	super(grower);
+	//	if (!head) {
+	//		super.setForm(grower.tailForm());
+	//	}
+	//}
 
 	public GrowerBase(InteractorDetails interactor, Forms form, int xPos, int yPos, Directions direction) {
 		super(interactor, form, xPos, yPos, direction);
@@ -34,7 +32,6 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		// rotation / 30, form.sendValue() };
 		return getPositionsAllSend(filler, pointer);
 	}
-
 	@Override
 	public int getLength() {
 		int current = 1;
@@ -42,13 +39,22 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 
 	}
 
+	@Override 
+	public int getLength(int current) {
+		//int current = 1;
+		current ++;
+		return (tail == null) ? current : tail.getLength(current);
+
+	}
+
 	public void setLength(int newLength, int imunityLength) {
+		imunityLength--;
 		if (newLength > 1) {
 			if (tail == null) {
-				tail = new GrowerTail(super.getInteractor(), this);
-				if (imunityLength > 0) {
-					tail.setImuneToCrash(this);
-					imunityLength--;
+				tail = new GrowerTail(getGrower(), owner, this );
+				if (imunityLength >= 0) {
+					tail.setImuneToCrash(owner);
+					
 				}
 
 			}
@@ -67,32 +73,15 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 			tail = null;
 		}
 	}
-/**
+
 	@Override
-	public void move() {
-		if (tail != null) {
-			tail.follow(super.getxPos(), super.getyPos(), super.getRotation());
+	public void act() {		
+		super.act();
+		if (tail != null && getTimesActed() == tail.getTimesActed() + getHeight()) {
+			tail.act();
 		}
-		super.move();
-
 	}
-	**/
-	public void move() {
-		
-		super.move();
-		if (tail != null && !(tail.getxPos() == getxPos() && tail.getyPos() == getyPos())) {
-			tail.followNew(getLastxPart(), getLastyPart(), lastRotation);
-
-		}
-		
-		
-		lastRotation = super.getRotation();
-		//double xBeforeMove = getxPos();
-		//double yBeforeMove = getyPos();
-	//	super.move();
-		lastXpos = getxPos();
-		lastYpos = getyPos();
-	}
+	
 
 	public int[] getPositionsAllSend(int[] filler, int pointer) {
 		filler[pointer] = super.getInteractor().subType();
@@ -106,20 +95,11 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		return (tail == null) ? filler : tail.getPositionsAllSend(filler, pointer);
 	}
 
-	/**
-	 * @Override public Shape[] getPositionsAllCrash(Shape[] filler, int
-	 *           pointer) { Rectangle crashShape = new Rectangle((int)
-	 *           super.getxPos(),(int) super.getyPos(), super.getHeight(),
-	 *           super.getWidth()); rotateCrashShape(crashShape);
-	 *           filler[pointer] = crashShape; pointer ++; return (tail == null)
-	 *           ? filler : tail.getPositionsAllCrash(filler, pointer); }
-	 **/
+
 	@Override
 	public void testCrashing(Interactor violator) {
 		super.testCrashing(violator);
-	//	if (tail != null) {
-	//		tail.testCrashing(violator);
-	//	}
+
 
 	}
 
@@ -131,24 +111,31 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		Interactor[] result = new Interactor[getLength()];
 		result[0] = this;
 		int pointer = 1;
-		return (tail == null) ? result : tail.getInteractorAll(result, pointer);
+		return (tail == null) ? result : tail.getEntireInteractor(result, pointer);
+		
+	}
+	protected Interactor[] getEntireInteractor(Interactor[] result, int pointer) {
+		result[pointer] = this;
+		pointer ++;
+		return (tail == null) ? result : tail.getEntireInteractor(result, pointer);
 		
 	}
 	public GrowerDetails getGrower() {
 		GrowerDetails grower = (GrowerDetails) getInteractor();
 		return grower;
 	}
-	@Override
-	public void setxPos(double newX){
+	
+	
+	public void setxPosAll(double newX){
 		super.setxPos(newX);
 		if(tail != null) {
-			tail.setxPos(newX);
+			tail.setxPosAll(newX);
 		}
 	}
-	public void setyPos(double newY){
+	public void setyPosAll(double newY){
 		super.setyPos(newY);
 		if(tail != null) {
-			tail.setyPos(newY);
+			tail.setyPosAll(newY);
 		}
 	}
 	public Interactor getLastTail() {
@@ -157,16 +144,60 @@ public abstract class GrowerBase extends TurnerBase implements Grower {
 		}
 		return tail.getLastTail();
 	}
-	private double getLastxPart() {
-		System.out.println("Current xpos Base = " + super.getxPos());
-		System.out.println("lastX base = " + (super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()))));
-		return super.getxPos() - getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+	public void setOwner(Interactor owner) {
+		this.owner = owner;
 	}
-
-	private double getLastyPart() {
-		System.out.println("Current ypos Base = " + super.getyPos());
-		System.out.println("lastY base = " + (super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()))));
-		return super.getyPos() + getHeight() * Math.cos(Math.toRadians(super.getRotation()));
+	public Interactor getOwner() {
+		return owner;
+	}
+	@Override
+	public void setMovingSpeed(int speed) {
+		super.setMovingSpeed(speed);
+		if(tail != null) {
+			tail.setMovingSpeed(speed);
+		}
+	}
+	@Override
+	public void setSteerPoint(Directions newDirection, int whenToReadInstructions) {
+		super.setSteerPoint(newDirection, whenToReadInstructions);
+		if(tail != null) {
+			tail.setSteerPoint(newDirection, whenToReadInstructions);
+		}
+	}
+	@Override
+	public void setMovingDirection(Directions direction) {
+		super.setMovingDirection(direction);
+		if(tail != null) {
+			tail.setMovingDirection(direction);
+		}
+	}
+	public void setSteeringDirection(Directions direction) {
+		super.setSteeringDirection(direction);
+		if(tail != null) {
+			tail.setSteeringDirection(direction);
+		}
+	}
+	
+	public void setRotationAll(int rotation) {
+		super.setRotation(rotation);
+		if(tail != null) {
+			tail.setRotationAll(rotation);
+		}
+	}
+	@Override
+	public void setTimesActed(int times) {
+		super.setTimesActed(times);
+		if(tail != null) {
+			tail.setTimesActed(times);
+		}
+	}
+	
+	@Override
+	public void emptyTurnInstructions() {
+		super.emptyTurnInstructions();
+		if(tail != null) {
+			tail.emptyTurnInstructions();
+		}
 	}
 
 }

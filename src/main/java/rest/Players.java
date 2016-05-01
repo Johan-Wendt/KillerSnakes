@@ -23,11 +23,11 @@ public enum Players implements PlayerDetails {
 		type = Constants.PLAYER;
 		startActingSpeed = 60;
 		startMovingSpeed = 1;
-		imunityLength = 10;
+		imunityLength = 4;
 		width = 12;
-		heigth = 3;
-		startLength = 40;
-		borders = "M0,0 L0,3 12,3 12,0 Z";
+		heigth = 12;
+		startLength = 10;
+		borders = "M0,0 L0,12 12,12 12,0 Z";
 		
 		this.subType = subType;
 		this.startDirection = startDirection;

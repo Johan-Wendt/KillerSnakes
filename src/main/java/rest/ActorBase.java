@@ -5,10 +5,13 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	private int currentActingPoints = 0;
 	private int actingSpeed = 10;
 	private int invincibleCounter;
+	public int timesActed;
+	
+	public ActorBase() {
+	}
 
 	public ActorBase(InteractorDetails interactor) {
 		super(interactor);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ActorBase(InteractorDetails interactor, Forms form, int xPos, int yPos) {
@@ -18,9 +21,15 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	public void gameRound() {
 		currentActingPoints += actingSpeed;
 		while (isTimeToAct()) {
+		//if (isTimeToAct()) {
 			act();
+			
 			countDownInvincibility();
 		}
+	}
+	public void act() {
+		timesActed++;
+		//System.out.println("timesActed = " + timesActed);
 	}
 
 	public boolean isTimeToAct() {
@@ -62,6 +71,12 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	}
 	public void setCurrentActingPoints(int points) {
 		currentActingPoints = points;
+	}
+	public int getTimesActed() {
+		return timesActed;
+	}
+	public void setTimesActed(int times) {
+		timesActed = times;
 	}
 
 }

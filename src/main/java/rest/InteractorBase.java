@@ -12,11 +12,16 @@ public abstract class InteractorBase implements Interactor {
 	private int width;
 	private int height;
 	private Forms form;
-	private boolean TestCrashingInto = true;
+	private boolean TestCrashingInto = false;
+	private boolean TestGettingCrashed = true;
 	private boolean invincible = false;
 	private Interactor imuneToCrash = null;
 
 	private SVGPath borders;
+	
+	public InteractorBase() {
+		
+	}
 
 	public InteractorBase(InteractorDetails interactor) {
 		this.interactor = interactor;
@@ -46,6 +51,7 @@ public abstract class InteractorBase implements Interactor {
 	}
 
 	public double getyPos() {
+		
 		return yPos;
 	}
 
@@ -149,8 +155,8 @@ public abstract class InteractorBase implements Interactor {
 				}
 			}
 		}
-		setTestCrashingInto(false);
-		violator.setTestCrashingInto(false);
+		//setTestCrashingInto(false);
+		//violator.setTestCrashingInto(false);
 
 	}
 
@@ -206,6 +212,14 @@ public abstract class InteractorBase implements Interactor {
 	public Interactor[] getEntireInteractor() {
 		Interactor[] result = { this };
 		return result;
+	}
+
+	public boolean isTestGettingCrashed() {
+		return TestGettingCrashed;
+	}
+
+	public void setTestGettingCrashed(boolean testGettingCrashed) {
+		TestGettingCrashed = testGettingCrashed;
 	}
 
 }

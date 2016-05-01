@@ -55,5 +55,8 @@ public interface Interactor {
 	public SVGPath getCrashBorders();
 	
 	public Interactor[] getEntireInteractor();
+	
+	public boolean isTestGettingCrashed();
 
+	public void setTestGettingCrashed(boolean testGettingCrashed);
 }

@@ -1,6 +1,6 @@
 package rest;
 
-	public enum Bonuses implements HappeningDetails {
+	public enum Happenings implements HappeningDetails {
 		SPPED(1, 0.005), GROW(2, 0.005), PISTOL(3, 0.002), SHOTGUN(4, 0.001);
 
 		private final int type;
@@ -12,7 +12,7 @@ package rest;
 		private final double chance;
 
 
-		Bonuses(int subType, double chance) {
+		Happenings(int subType, double chance) {
 			width = 10;
 			heigth = 10;
 			borders = "M0,0 L0,10 10,10 10,0 Z";

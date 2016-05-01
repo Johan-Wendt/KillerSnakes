@@ -6,10 +6,10 @@ public class PlayerHuman extends PlayerBase {
 		super(player);
 	}
 
-	public PlayerHuman(PlayerDetails player, boolean head) {
-		super(player, head);
+	//public PlayerHuman(PlayerDetails player, boolean head) {
+	//	super(player, head);
 
-	}
+	//}
 
 	@Override
 	public Directions getmovingDirection() {

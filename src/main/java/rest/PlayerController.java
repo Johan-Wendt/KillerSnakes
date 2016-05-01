@@ -27,11 +27,10 @@ public class PlayerController extends TypeControllerBase {
 		playerBase.steer(newDirection);
 	}
 
-	// public void shoot(WeaponController weaponController, byte player) {
-	// PlayerBase playerBase = (PlayerBase)
-	// super.getActingObjects().get(player.ordinal());
-	// offender.shoot(weaponController);
-	// }
+	 public void shoot(ProjectileController projectileController, Players player) {
+	 PlayerBase playerBase = (PlayerBase) super.getActingObjects().get(player.ordinal());
+	 projectileController.shoot(playerBase);
+	 }
 
 	public void changeWeapon(Players player) {
 		// PlayerBase playerBase = (PlayerBase)

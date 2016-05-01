@@ -4,6 +4,9 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	private Directions movingDirection;
 	private int movingSpeed;
 
+	public MoverBase() {
+	}
+
 	public MoverBase(InteractorDetails interactor) {
 		super(interactor);
 	}
@@ -12,11 +15,20 @@ public abstract class MoverBase extends ActorBase implements Mover {
 		super(interactor, form, xPos, yPos);
 		setMovingDirection(direction);
 	}
+	@Override
+	public void gameRound() {
+		int n = 0;
+		while(n < getMovingSpeed()) {
+			super.gameRound();
+			n++;
+		}
+		
+	}
 
 	@Override
 	public void act() {
+		super.act();
 		move();
-		super.setTestCrashingInto(true);
 
 	}
 
@@ -27,28 +39,28 @@ public abstract class MoverBase extends ActorBase implements Mover {
 
 	}
 
-	/**
-	 * private double getNextxStep() { return super.getxPos() +
-	 * movingDirection.getxMultiplier() * getHeight(); } private double
-	 * getNextyStep() { return super.getyPos() +
-	 * movingDirection.getyMultiplier() * getHeight(); }
-	 **/
-	/**
+
+
 	private double getNextxStep() {
-		return super.getxPos() + movingSpeed * getHeight() * Math.sin(Math.toRadians(super.getRotation()));
+		double newxPos = super.getxPos() + Math.sin(Math.toRadians(super.getRotation()));
+		if(newxPos < 0) {
+			newxPos += Constants.GAME_WIDTH;
+		}
+		else if(newxPos > Constants.GAME_WIDTH) {
+			newxPos -= Constants.GAME_WIDTH;
+		}
+		return newxPos;
 	}
 
 	private double getNextyStep() {
-		return super.getyPos() - movingSpeed * getHeight() * Math.cos(Math.toRadians(super.getRotation()));
-	}
-	**/
-	
-	private double getNextxStep() {
-		return super.getxPos() + movingSpeed * Math.sin(Math.toRadians(super.getRotation()));
-	}
-
-	private double getNextyStep() {
-		return super.getyPos() - movingSpeed * Math.cos(Math.toRadians(super.getRotation()));
+		double newyPos = super.getyPos() - Math.cos(Math.toRadians(super.getRotation()));
+		if(newyPos < 0) {
+			newyPos += Constants.GAME_HEIGHT;
+		}
+		else if(newyPos > Constants.GAME_HEIGHT) {
+			newyPos -= Constants.GAME_HEIGHT;
+		}
+		return newyPos;
 	}
 
 	public void setMovingDirection(Directions direction) {
@@ -67,5 +79,7 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	public void setMovingSpeed(int movingSpeed) {
 		this.movingSpeed = movingSpeed;
 	}
+	
+
 
 }

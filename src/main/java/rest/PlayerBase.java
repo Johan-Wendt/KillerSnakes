@@ -1,6 +1,10 @@
 package rest;
 
-public abstract class PlayerBase extends GrowerBase implements Player {
+import java.util.ArrayList;
+
+public abstract class PlayerBase extends GrowerFront implements Player {
+	private Weapons equippedWeapon = Weapons.PISTOL;
+	private ArrayList<Integer> ammo = new ArrayList<>();
 
 	public PlayerBase(Players player) {
 		super(player);
@@ -10,14 +14,29 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 		super.setActingSpeed(player.startActingSpeed());
 
 		super.setMovingSpeed(player.startMovingSpeed());
+		
+		loadUpAmmo();
+		
+		//setLength(player.startLength(), player.imunityLength());
 
 	}
 
-	public PlayerBase(PlayerDetails player, boolean head) {
-		super(player, head);
 
+
+//	public PlayerBase(PlayerDetails player, boolean head) {
+//		super(player, head);
+
+	//}
+	/**
+	@Override
+	public void act() {
+		int n = 0;
+		while(n < super.getMovingSpeed()) {
+			super.act();
+			n++;
+		}
 	}
-
+**/
 	@Override
 	public void handleCrashing(Interactor victim) {
 
@@ -38,18 +57,20 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 
 	}
 
-	private void handleBonus(Bonuses bonus) {
-		setCurrentActingPoints(-6 * getActingSpeed());
+	private void handleBonus(Happenings bonus) {
+		setCurrentActingPoints(-6 * getActingSpeed() * getMovingSpeed());
 		switch (bonus) {
 		case SPPED:
-			setActingSpeed((getActingSpeed() + 2));
+			setMovingSpeed((getMovingSpeed() + 1));
 			break;
 		case GROW:
-			setLength(getLength() + 5, getPlayerDetails().imunityLength());
+			setLength(getLength() + 1, getPlayerDetails().imunityLength());
 			break;
 		case PISTOL:
+			addWeapon(Weapons.PISTOL);
 			break;
 		case SHOTGUN:
+			addWeapon(Weapons.SHOTGUN);
 			break;
 		}
 
@@ -62,9 +83,11 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 
 	private void reStart() {
 		super.setMovingDirection(getPlayerDetails().startDirection());
-		super.setxPos(getPlayerDetails().startX());
-		super.setyPos(getPlayerDetails().startY());
+		super.setxPosAll(getPlayerDetails().startX());
+		super.setyPosAll(getPlayerDetails().startY());
 		super.setSteeringDirection(getPlayerDetails().startDirection());
+		super.setRotationAll(getPlayerDetails().startDirection().getDegreesTurned());
+		super.setTimesActed(0);
 		super.setInvincible(30);
 		super.emptyTurnInstructions();
 	}
@@ -82,6 +105,56 @@ public abstract class PlayerBase extends GrowerBase implements Player {
 	public PlayerDetails getPlayerDetails() {
 		PlayerDetails result = (PlayerDetails) super.getInteractor();
 		return result;
+	}
+	private void loadUpAmmo() {
+		int n = 0;
+		while(n < Weapons.values().length) {
+			ammo.add(0);
+			n++;
+		}
+		addWeapon(Weapons.KNIFE);
+		
+	}
+
+	private void addWeapon(Weapons weapon) {
+		int replaceIndex = weapon.ordinal();
+		ammo.set(replaceIndex, ammo.get(replaceIndex) + 1);
+		
+	}
+	public void changeWeapon() {
+		int weaponSize = Weapons.values().length;
+		int newWeapon = equippedWeapon.ordinal() + 1;
+		if(newWeapon >= weaponSize) {
+			newWeapon -= weaponSize;
+		}
+		equippedWeapon = Weapons.values()[newWeapon];
+		if(ammo.get(newWeapon) <= 0) {
+			changeWeapon();
+		}
+	}
+
+
+
+	public Weapons getEquippedWeapon() {
+		return equippedWeapon;
+	}
+
+
+
+	public void setEquippedWeapon(Weapons equippedWeapon) {
+		this.equippedWeapon = equippedWeapon;
+	}
+
+
+
+	public ArrayList<Integer> getAmmo() {
+		return ammo;
+	}
+
+
+
+	public void setAmmo(ArrayList<Integer> ammo) {
+		this.ammo = ammo;
 	}
 
 }
