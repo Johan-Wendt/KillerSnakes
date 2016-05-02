@@ -1,7 +1,7 @@
 package rest;
 
 public enum Weapons {
-	KNIFE(0, Projectiles.STAB, 1), MINE(1, Projectiles.MINE, -1), PISTOL(1, Projectiles.BULLET, 100), SHOTGUN(1, Projectiles.BULLET, 50);
+	KNIFE(0, Projectiles.STAB, 1), MINE(1, Projectiles.MINE, -1), PISTOL(1, Projectiles.BULLET, 300), SHOTGUN(1, Projectiles.BULLET, 100);
 	
 	private final int numberConsumed;
 	private final Projectiles projectileShot;

@@ -13,7 +13,7 @@ public abstract class TypeControllerBase implements TypeController {
 
 	public void controllerRound() {
 		act();
-	//	disposeOfRemovables();
+		// disposeOfRemovables();
 	}
 
 	public void act() {
@@ -50,22 +50,25 @@ public abstract class TypeControllerBase implements TypeController {
 				result.add(actor);
 			}
 		}
-		
+
 		return result;
 	}
+
 	public ArrayList<Interactor> getPossibleVictims() {
 		ArrayList<Interactor> result = new ArrayList<>();
 		for (Actor actor : actingObjects) {
-			Interactor[] partResult = actor.getEntireInteractor();
-			int n = 0;
-			while(n < partResult.length) {
-				result.add(partResult[n]);
-				n++;
+			if (actor.isTestGettingCrashed()) {
+				Interactor[] partResult = actor.getEntireInteractor();
+				int n = 0;
+				while (n < partResult.length) {
+					result.add(partResult[n]);
+					n++;
+				}
 			}
 		}
-		
+
 		return result;
-		
+
 	}
 
 	public void addToActingObjects(Actor actor) {

@@ -13,8 +13,8 @@ public class ProjectileController extends TypeControllerBase{
 	
 	public void shoot(PlayerBase player) {
 		Weapons weapon = player.getEquippedWeapon();
-		Bullet bullet = new Bullet(weapon.projectileShot(), weapon.range(), player);
-		super.addToActingObjects(bullet);
+		//Bullet bullet = new Bullet(weapon.projectileShot(), weapon.range(), player);
+		super.addToActingObjects(new Bullet(weapon.projectileShot(), weapon.range(), player));
 
 	}
 

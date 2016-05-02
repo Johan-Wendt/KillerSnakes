@@ -24,7 +24,7 @@ public abstract class ProjectileBase extends MoverBase implements Projectile, Sl
 		if(longevity > 0 && super.getTimesActed() > longevity) {
 			super.setToBeRemoved();
 		}
-		if(super.getTimesActed() > owner.getHeight() + 1) {
+		if(super.getTimesActed() > 2 * owner.getHeight() * getMovingSpeed()) {
 			super.setTestGettingCrashed(true);
 			super.setTestCrashingInto(true);
 		}

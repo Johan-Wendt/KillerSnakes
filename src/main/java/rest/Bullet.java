@@ -14,12 +14,22 @@ public class Bullet extends ProjectileBase {
 
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
+		System.out.println("int0");
 		super.setToBeRemoved();
 	}
 
 	@Override
 	public void handleCrashing(Interactor violator) {
+		System.out.println("out of");
 		super.setToBeRemoved();
+
+	}
+	
+	@Override
+	public void move() {
+		super.move();
+		System.out.println(super.getxPos());
+		System.out.println(super.getyPos());
 
 	}
 
