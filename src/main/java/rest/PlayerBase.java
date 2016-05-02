@@ -38,6 +38,15 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 	}
 **/
 	@Override
+	public void handleGettingCrashed(Interactor violator) {
+		int type = violator.getInteractor().type();
+		switch (type) {
+		case Constants.PLAYER:
+			break;
+
+		}
+	}
+	@Override
 	public void handleCrashing(Interactor victim) {
 
 		int type = victim.getInteractor().type();
@@ -92,15 +101,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		super.emptyTurnInstructions();
 	}
 
-	@Override
-	public void handleGettingCrashed(Interactor violator) {
-		int type = violator.getInteractor().type();
-		switch (type) {
-		case Constants.PLAYER:
-			break;
-
-		}
-	}
+	
 
 	public PlayerDetails getPlayerDetails() {
 		PlayerDetails result = (PlayerDetails) super.getInteractor();

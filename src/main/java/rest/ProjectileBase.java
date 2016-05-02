@@ -8,9 +8,12 @@ public abstract class ProjectileBase extends MoverBase implements Projectile, Sl
 		super(projectile);
 		this.longevity = longevity;
 		this.owner = owner;
+		super.setImuneToCrash(owner);
 		
-		super.setTestGettingCrashed(false);
-		super.setTestCrashingInto(false);
+		super.setTestGettingCrashed(true);
+		super.setTestCrashingInto(true);
+		
+		owner.delay(owner.getEquippedWeapon().ricoche() * owner.getMovingSpeed());
 	}
 	public void setOwner(Interactor owner) {
 		this.owner = owner;
@@ -25,8 +28,7 @@ public abstract class ProjectileBase extends MoverBase implements Projectile, Sl
 			super.setToBeRemoved();
 		}
 		if(super.getTimesActed() > 2 * owner.getHeight() * getMovingSpeed()) {
-			super.setTestGettingCrashed(true);
-			super.setTestCrashingInto(true);
+			super.setImuneToCrash(null);
 		}
 	}
 

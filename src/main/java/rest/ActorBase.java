@@ -1,7 +1,7 @@
 package rest;
 
 public abstract class ActorBase extends InteractorBase implements Actor {
-	private int actingLimit = 60;
+	private final static int actingLimit = 60;
 	private int currentActingPoints = 0;
 	private int actingSpeed = 10;
 	private int invincibleCounter;
@@ -77,6 +77,9 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 	}
 	public void setTimesActed(int times) {
 		timesActed = times;
+	}
+	public void delay(int timesTillNextAct) {
+		currentActingPoints = -(actingSpeed * timesTillNextAct);
 	}
 
 }

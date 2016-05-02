@@ -24,5 +24,7 @@ public interface Actor extends Interactor {
 	
 	public int getTimesActed();
 	public void setTimesActed(int times);
+	
+	public void delay(int timesTillNextAct);
 
 }

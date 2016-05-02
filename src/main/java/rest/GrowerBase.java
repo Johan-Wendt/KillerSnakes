@@ -96,13 +96,6 @@ public abstract class GrowerBase extends TurnerBase implements Grower, Slave {
 	}
 
 
-	@Override
-	public void testCrashing(Interactor violator) {
-		super.testCrashing(violator);
-
-
-	}
-
 	public GrowerTail getTail() {
 		return tail;
 	}
@@ -198,6 +191,15 @@ public abstract class GrowerBase extends TurnerBase implements Grower, Slave {
 		if(tail != null) {
 			tail.emptyTurnInstructions();
 		}
+	}
+	@Override
+	public void testCrashing(Interactor violator) {
+		if (!(owner.getImuneToCrash() == violator || violator.getImuneToCrash() == owner)) {
+			super.testCrashing(violator);
+		}
+		//setTestCrashingInto(false);
+		//violator.setTestCrashingInto(false);
+
 	}
 
 }

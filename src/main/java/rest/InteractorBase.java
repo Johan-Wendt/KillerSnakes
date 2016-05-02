@@ -144,7 +144,7 @@ public abstract class InteractorBase implements Interactor {
 	}
 
 	public void testCrashing(Interactor violator) {
-		if (!(violator.equals(this) || imuneToCrash == violator) && closeEnoughToCrash(violator)) {
+		if (!(violator.equals(this) || imuneToCrash == violator || violator.getImuneToCrash() == this) && closeEnoughToCrash(violator)) {
 
 			if (putOnTop(violator)) {
 				handleGettingCrashed(violator);
