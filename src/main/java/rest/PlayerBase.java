@@ -158,8 +158,9 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 	}
 	public int [] getWeaponInfoSend() {
 		int weapon = equippedWeapon.ordinal();
+		
 	
-		int [] result = {weapon, ammo.get(weapon)}; 
+		int [] result = {getPlayerDetails().subType(), weapon, ammo.get(weapon)}; 
 		
 		return result;
 	}

@@ -41,8 +41,8 @@ public class SnakeMasterController implements MasterController {
 		controllerRound();
 		//crashCheck();
 		disposeOfRemovables();
-		sendOutPutPositions();
-		sendOutPutWeaponInfo();
+		sendToClient();
+		
 	}
 	
 	public void controllerRound() {
@@ -150,6 +150,21 @@ public class SnakeMasterController implements MasterController {
 		for (TypeController controller : controllers) {
 			controller.testCrashInto(violaters);
 		}
+	}
+	private void sendToClient() {
+		sendOutPutPositions();
+		sendOutPutWeaponInfo();
+		
+	}
+
+	private void sendOutPutWeaponInfo() {
+		int[] positions = getWeaponInfoSend();
+		sendMessage(positions);
+		
+	}
+
+	private int[] getWeaponInfoSend() {
+			return playerController.getWeaponInfoSend();
 	}
 
 }

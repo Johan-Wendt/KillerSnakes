@@ -40,7 +40,7 @@ public class PlayerController extends TypeControllerBase {
 	
 	public int[] getWeaponInfoSend() {
 
-		int[] result = new int[1 + numberOfcreatedPlayers * 2 + 1];
+		int[] result = new int[1 + numberOfcreatedPlayers * 3 + 1];
 		result[0] = Constants.WEAPON_INFO;
 		int pointer = 1;
 		for (Actor actor : super.getActingObjects()) {
