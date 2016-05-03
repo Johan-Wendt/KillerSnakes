@@ -7,10 +7,11 @@ public interface Constants {
 	// SubType, xPos, yPos
 	public static final int INTS_SENT_PER_OBJECT = 7;
 
-	// type constants
+	// Codes for client actions
 	public static final int PLAYER = 1;
 	public static final int BONUS = 2;
 	public static final int PROJECTILE = 3;
+	public static final int WEAPON_INFO = 4;
 	
 	
 	//Game board

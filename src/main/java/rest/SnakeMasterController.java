@@ -41,7 +41,8 @@ public class SnakeMasterController implements MasterController {
 		controllerRound();
 		//crashCheck();
 		disposeOfRemovables();
-		sendOutPut();
+		sendOutPutPositions();
+		sendOutPutWeaponInfo();
 	}
 	
 	public void controllerRound() {
@@ -78,12 +79,12 @@ public class SnakeMasterController implements MasterController {
 		} else if (input[1] == 3) {
 			playerController.shoot(projectileController, Players.getPlayer(input[0]));
 		} else if (input[1] == 4) {
-			// snakeController.changeWeapon((byte) input[0]);
+			playerController.changeWeapon(Players.getPlayer(input[0]));
 		}
 	}
 
 	@Override
-	public void sendOutPut() {
+	public void sendOutPutPositions() {
 		int[] positions = getAllPositionsSend();
 		sendMessage(positions);
 

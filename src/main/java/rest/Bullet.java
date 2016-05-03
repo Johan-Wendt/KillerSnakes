@@ -7,9 +7,16 @@ public class Bullet extends ProjectileBase {
 		super.setxPos(owner.getxPos());
 		super.setyPos(owner.getyPos());
 		super.setRotation(owner.getRotation());
-		super.setMovingSpeed(owner.getMovingSpeed() + 1);
+		super.setMovingSpeed(owner.getMovingSpeed() + owner.getEquippedWeapon().speed());
 		super.setActingSpeed(owner.getActingSpeed() + 1);
-
+	}
+	public Bullet(ProjectileDetails projectile, int longevity, PlayerBase owner, double rotationOffset) {
+		super(projectile, longevity, owner);
+		super.setxPos(owner.getxPos());
+		super.setyPos(owner.getyPos());
+		super.setMovingSpeed(owner.getMovingSpeed() + owner.getEquippedWeapon().speed());
+		super.setActingSpeed(owner.getActingSpeed() + 1);
+		super.setRotation(owner.getRotation() + rotationOffset);
 	}
 
 	@Override
@@ -19,7 +26,6 @@ public class Bullet extends ProjectileBase {
 		case Constants.PROJECTILE:
 			break;
 		default:
-			System.out.println("into");
 			super.setToBeRemoved();
 			break;
 		}
@@ -33,7 +39,6 @@ public class Bullet extends ProjectileBase {
 		case Constants.PROJECTILE:
 			break;
 		default:
-			System.out.println("outof");
 			super.setToBeRemoved();
 			break;
 		}

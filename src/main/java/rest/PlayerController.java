@@ -33,9 +33,28 @@ public class PlayerController extends TypeControllerBase {
 	 }
 
 	public void changeWeapon(Players player) {
-		// PlayerBase playerBase = (PlayerBase)
-		// super.getActingObjects().get(player.ordinal());
-		// player.changeWeapon();
+		PlayerBase playerBase = (PlayerBase) super.getActingObjects().get(player.ordinal());
+		playerBase.changeWeapon();
+
+	}
+	
+	public int[] getWeaponInfoSend() {
+
+		int[] result = new int[1 + numberOfcreatedPlayers * 2 + 1];
+		result[0] = Constants.WEAPON_INFO;
+		int pointer = 1;
+		for (Actor actor : super.getActingObjects()) {
+			PlayerBase player = (PlayerBase) actor;
+			int[] tempResult = player.getWeaponInfoSend();
+			int n = 0;
+			while (n < tempResult.length) {
+				result[pointer] = tempResult[n];
+				n++;
+				pointer++;
+			}
+		}
+		result[result.length - 1] = -1;
+		return result;
 
 	}
 

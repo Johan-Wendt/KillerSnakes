@@ -3,7 +3,7 @@ package rest;
 import java.util.ArrayList;
 
 public abstract class PlayerBase extends GrowerFront implements Player {
-	private Weapons equippedWeapon = Weapons.PISTOL;
+	private Weapons equippedWeapon = Weapons.KNIFE;
 	private ArrayList<Integer> ammo = new ArrayList<>();
 
 	public PlayerBase(Players player) {
@@ -14,29 +14,21 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		super.setActingSpeed(player.startActingSpeed());
 
 		super.setMovingSpeed(player.startMovingSpeed());
-		
+
 		loadUpAmmo();
-		
-		//setLength(player.startLength(), player.imunityLength());
+
+		// setLength(player.startLength(), player.imunityLength());
 
 	}
 
+	// public PlayerBase(PlayerDetails player, boolean head) {
+	// super(player, head);
 
-
-//	public PlayerBase(PlayerDetails player, boolean head) {
-//		super(player, head);
-
-	//}
+	// }
 	/**
-	@Override
-	public void act() {
-		int n = 0;
-		while(n < super.getMovingSpeed()) {
-			super.act();
-			n++;
-		}
-	}
-**/
+	 * @Override public void act() { int n = 0; while(n <
+	 *           super.getMovingSpeed()) { super.act(); n++; } }
+	 **/
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
 		int type = violator.getInteractor().type();
@@ -46,6 +38,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 		}
 	}
+
 	@Override
 	public void handleCrashing(Interactor victim) {
 
@@ -101,61 +94,74 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		super.emptyTurnInstructions();
 	}
 
-	
-
 	public PlayerDetails getPlayerDetails() {
 		PlayerDetails result = (PlayerDetails) super.getInteractor();
 		return result;
 	}
+
 	private void loadUpAmmo() {
 		int n = 0;
-		while(n < Weapons.values().length) {
+		while (n < Weapons.values().length) {
 			ammo.add(0);
 			n++;
 		}
 		addWeapon(Weapons.KNIFE);
-		
+
 	}
 
 	private void addWeapon(Weapons weapon) {
 		int replaceIndex = weapon.ordinal();
 		ammo.set(replaceIndex, ammo.get(replaceIndex) + 1);
-		
+
 	}
+
 	public void changeWeapon() {
 		int weaponSize = Weapons.values().length;
 		int newWeapon = equippedWeapon.ordinal() + 1;
-		if(newWeapon >= weaponSize) {
+		if (newWeapon >= weaponSize) {
 			newWeapon -= weaponSize;
 		}
 		equippedWeapon = Weapons.values()[newWeapon];
-		if(ammo.get(newWeapon) <= 0) {
+		if (ammo.get(newWeapon) <= 0) {
 			changeWeapon();
 		}
 	}
-
-
 
 	public Weapons getEquippedWeapon() {
 		return equippedWeapon;
 	}
 
-
-
 	public void setEquippedWeapon(Weapons equippedWeapon) {
 		this.equippedWeapon = equippedWeapon;
 	}
-
-
 
 	public ArrayList<Integer> getAmmo() {
 		return ammo;
 	}
 
-
-
 	public void setAmmo(ArrayList<Integer> ammo) {
 		this.ammo = ammo;
+	}
+
+	public boolean shoot() {
+		int weapon = equippedWeapon.ordinal();
+		int ammonition = ammo.get(weapon);
+		if (ammonition > 0) {
+			ammo.set(weapon, ammonition - 1);
+			if (ammonition == 1) {
+				changeWeapon();
+			}
+			return true;
+		}
+		return false;
+
+	}
+	public int [] getWeaponInfoSend() {
+		int weapon = equippedWeapon.ordinal();
+	
+		int [] result = {weapon, ammo.get(weapon)}; 
+		
+		return result;
 	}
 
 }

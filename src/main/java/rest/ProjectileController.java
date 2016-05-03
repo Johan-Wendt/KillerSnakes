@@ -20,12 +20,27 @@ public class ProjectileController extends TypeControllerBase {
 		if (shotsQueued.size() > 0) {
 			PlayerBase player = shotsQueued.pop();
 			Weapons weapon = player.getEquippedWeapon();
-			super.addToActingObjects(new Bullet(weapon.projectileShot(), weapon.range(), player));
+			switch (weapon) {
+			case PISTOL:
+				super.addToActingObjects(new Bullet(weapon.projectileShot(), weapon.range(), player));
+				break;
+			case SHOTGUN:
+				int n = 0;
+				int rotationOffset = -30;
+				while (n < 3) {
+					super.addToActingObjects(
+							new Bullet(weapon.projectileShot(), weapon.range(), player, rotationOffset));
+					n++;
+					rotationOffset += 30;
+				}
+			}
 		}
 	}
 
 	public void shoot(PlayerBase player) {
-		shotsQueued.add(player);
+		if (player.shoot()) {
+			shotsQueued.add(player);
+		}
 
 	}
 
