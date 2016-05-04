@@ -39,7 +39,6 @@ public class SnakeMasterController implements MasterController {
 	public void gameRound() {
 		crashCheck();
 		controllerRound();
-		//crashCheck();
 		disposeOfRemovables();
 		sendToClient();
 		
