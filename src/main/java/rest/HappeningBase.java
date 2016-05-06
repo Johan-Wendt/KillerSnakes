@@ -28,14 +28,12 @@ public abstract class HappeningBase extends ActorBase implements Happening {
 			break;
 		default:
 			super.setToBeRemoved();
-		//	System.out.println("Removed due to crashed into");
 		}
 
 	}
 
 	@Override
 	public void handleCrashing(Interactor violator) {
-	//	System.out.println("Removed due to crashing into");
 		super.setToBeRemoved();
 
 	}

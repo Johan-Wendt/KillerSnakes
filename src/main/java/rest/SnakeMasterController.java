@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-import com.google.common.primitives.Bytes;
-
 public class SnakeMasterController implements MasterController {
 
 	private PlayerController playerController;
@@ -28,8 +26,9 @@ public class SnakeMasterController implements MasterController {
 		playerController.createPlayer();
 		// playerController.createPlayerAI();
 
-		controllers.add(playerController);
 		controllers.add(new HappeningController(Types.HAPPENING));
+		controllers.add(playerController);
+		
 		controllers.add(projectileController);
 		
 		gameLoop = new GameLoop(this);
@@ -83,7 +82,7 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	@Override
-	public void sendOutPutPositions() {
+	public void sendOutPut() {
 		int[] positions = getAllPositionsSend();
 		sendMessage(positions);
 
@@ -114,19 +113,14 @@ public class SnakeMasterController implements MasterController {
 	public int[] getAllPositionsSend() {
 		int resultSize = 0;
 		for (TypeController controller : controllers) {
-			resultSize += controller.getLength() * Constants.INTS_SENT_PER_OBJECT + 2;
+			resultSize += controller.getSendInfoSize();
 		}
 		int[] result = new int[resultSize];
 		int pointer = 0;
 		for (TypeController controller : controllers) {
-			int[] tempResult = controller.getAllPositionsSend();
-			int n = 0;
-			while (n < tempResult.length) {
-				result[pointer] = tempResult[n];
-				n++;
-				pointer++;
-			}
+			pointer = controller.appendAllPositionsSend(result, pointer);
 		}
+		playerController.appendWeaponInfoSend(result, pointer);
 		return result;
 	}
 
@@ -151,19 +145,8 @@ public class SnakeMasterController implements MasterController {
 		}
 	}
 	private void sendToClient() {
-		sendOutPutPositions();
-		sendOutPutWeaponInfo();
+		sendOutPut();
 		
-	}
-
-	private void sendOutPutWeaponInfo() {
-		int[] positions = getWeaponInfoSend();
-		sendMessage(positions);
-		
-	}
-
-	private int[] getWeaponInfoSend() {
-			return playerController.getWeaponInfoSend();
 	}
 
 }

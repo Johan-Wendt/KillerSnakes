@@ -18,5 +18,9 @@ public interface TypeController extends Controller {
 	public int getLength();
 	
 	public ArrayList<Interactor> getPossibleVictims();
+	
+	public int getSendInfoSize();
+	
+	public int appendAllPositionsSend(int[] message, int pointer);
 
 }

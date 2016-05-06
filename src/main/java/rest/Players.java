@@ -22,7 +22,7 @@ public enum Players implements PlayerDetails {
 	Players(int subType, Directions startDirection, int startX, int startY) {
 		type = Constants.PLAYER;
 		startActingSpeed = 60;
-		startMovingSpeed = 1;
+		startMovingSpeed = 2;
 		imunityLength = 4;
 		width = 12;
 		heigth = 12;

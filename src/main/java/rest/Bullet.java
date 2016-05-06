@@ -8,15 +8,23 @@ public class Bullet extends ProjectileBase {
 		super.setyPos(owner.getyPos());
 		super.setRotation(owner.getRotation());
 		super.setMovingSpeed(owner.getMovingSpeed() + owner.getEquippedWeapon().speed());
-		super.setActingSpeed(owner.getActingSpeed() + 1);
+		super.setActingSpeed(owner.getActingSpeed());
 	}
 	public Bullet(ProjectileDetails projectile, int longevity, PlayerBase owner, double rotationOffset) {
 		super(projectile, longevity, owner);
 		super.setxPos(owner.getxPos());
 		super.setyPos(owner.getyPos());
 		super.setMovingSpeed(owner.getMovingSpeed() + owner.getEquippedWeapon().speed());
-		super.setActingSpeed(owner.getActingSpeed() + 1);
+		super.setActingSpeed(owner.getActingSpeed());
 		super.setRotation(owner.getRotation() + rotationOffset);
+	}
+	public Bullet(ProjectileDetails projectile, int longevity, PlayerBase owner, double xPos, double yPos) {
+		super(projectile, longevity, owner);
+		super.setxPos(xPos);
+		super.setyPos(yPos);
+		super.setRotation(owner.getRotation());
+		super.setMovingSpeed(owner.getMovingSpeed() + owner.getEquippedWeapon().speed());
+		super.setActingSpeed(owner.getActingSpeed());
 	}
 
 	@Override
@@ -48,9 +56,11 @@ public class Bullet extends ProjectileBase {
 	@Override
 	public void move() {
 		super.move();
-		System.out.println(super.getxPos());
-		System.out.println(super.getyPos());
 
+	}
+	@Override
+	public int getLength() {
+		return super.getLength();
 	}
 
 }

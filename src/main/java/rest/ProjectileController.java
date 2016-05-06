@@ -21,18 +21,26 @@ public class ProjectileController extends TypeControllerBase {
 			PlayerBase player = shotsQueued.pop();
 			Weapons weapon = player.getEquippedWeapon();
 			switch (weapon) {
+			case KNIFE:
+
+					super.addToActingObjects(
+							new Bullet(weapon.projectileShot(), weapon.range(), player, player.getNextxStep(player.getHeight(), player.getRotation() - 90), player.getNextyStep(player.getLength(), player.getRotation() - 90)));
+
+				break;
+				
 			case PISTOL:
 				super.addToActingObjects(new Bullet(weapon.projectileShot(), weapon.range(), player));
 				break;
 			case SHOTGUN:
 				int n = 0;
-				int rotationOffset = -30;
+				int rotationOffset2 = -30;
 				while (n < 3) {
 					super.addToActingObjects(
-							new Bullet(weapon.projectileShot(), weapon.range(), player, rotationOffset));
+							new Bullet(weapon.projectileShot(), weapon.range(), player, rotationOffset2));
 					n++;
-					rotationOffset += 30;
+					rotationOffset2 += 30;
 				}
+				break;
 			}
 		}
 	}
@@ -43,5 +51,6 @@ public class ProjectileController extends TypeControllerBase {
 		}
 
 	}
+
 
 }

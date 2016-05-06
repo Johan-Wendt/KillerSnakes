@@ -13,7 +13,6 @@ public abstract class TypeControllerBase implements TypeController {
 
 	public void controllerRound() {
 		act();
-		// disposeOfRemovables();
 	}
 
 	public void act() {
@@ -22,24 +21,22 @@ public abstract class TypeControllerBase implements TypeController {
 		}
 	}
 
-	public int[] getAllPositionsSend() {
-		int length = getLength();
+	public int appendAllPositionsSend(int[] message, int pointer) {
 
-		int[] result = new int[1 + length * Constants.INTS_SENT_PER_OBJECT + 1];
-		result[0] = getTypeControlled();
-		int pointer = 1;
+		message[pointer] = getTypeControlled();
+		pointer++;
 		for (Actor actor : actingObjects) {
 			int[] tempResult = actor.getPositionsSend();
 			int n = 0;
 			while (n < tempResult.length) {
-				result[pointer] = tempResult[n];
+				message[pointer] = tempResult[n];
 				n++;
 				pointer++;
 			}
 		}
-		result[result.length - 1] = -1;
-		return result;
-
+		message[pointer] = -1;
+		pointer++;
+		return pointer;
 	}
 
 	@Override
@@ -113,6 +110,9 @@ public abstract class TypeControllerBase implements TypeController {
 				victim.testCrashing(violater);
 			}
 		}
+	}
+	public int getSendInfoSize() {
+		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1;
 	}
 
 }

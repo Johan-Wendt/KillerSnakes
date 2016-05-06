@@ -17,9 +17,13 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 @WebSocket
 public class HumanTouch {
 	private Session session;
+	private Session session2;
 	private RemoteEndpoint remote;
+	private RemoteEndpoint remote2;
 	// private GamePlan gamePlan = new GamePlan();
 	private SnakeMasterController masterController;
+
+	private int players = 0;
 
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
@@ -33,11 +37,20 @@ public class HumanTouch {
 
 	@OnWebSocketConnect
 	public void onConnect(Session sessions) {
-		System.out.println("Connect: ");
-		session = sessions;
-		System.out.println("Connect: " + session.getRemoteAddress().getAddress());
-		remote = session.getRemote();
-		masterController = new SnakeMasterController(this);
+
+		if (players == 0) {
+			session = sessions;
+			System.out.println("Connect: " + session.getRemoteAddress().getAddress());
+			remote = session.getRemote();
+			players++;
+		}
+		else if (players == 1) {
+			session2 = sessions;
+			System.out.println("Connect and start game: " + session.getRemoteAddress().getAddress());
+			remote2 = session2.getRemote();
+			masterController = new SnakeMasterController(this);
+			players = 0;
+		}
 	}
 
 	/**

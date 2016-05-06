@@ -38,24 +38,31 @@ public class PlayerController extends TypeControllerBase {
 
 	}
 	
-	public int[] getWeaponInfoSend() {
-
-		int[] result = new int[1 + numberOfcreatedPlayers * 3 + 1];
-		result[0] = Constants.WEAPON_INFO;
-		int pointer = 1;
+	public int appendWeaponInfoSend(int[] message, int pointer) {
+		message[pointer] = Constants.WEAPON_INFO;
+		pointer++;
 		for (Actor actor : super.getActingObjects()) {
 			PlayerBase player = (PlayerBase) actor;
 			int[] tempResult = player.getWeaponInfoSend();
 			int n = 0;
 			while (n < tempResult.length) {
-				result[pointer] = tempResult[n];
+				message[pointer] = tempResult[n];
 				n++;
 				pointer++;
 			}
 		}
-		result[result.length - 1] = -1;
-		return result;
+		message[pointer] = -1;
+		pointer++;
+		return pointer;
 
+	}
+	public int getWeaponSendInfoSize() {
+		return 1 + numberOfcreatedPlayers * 3 + 1;
+		
+	}
+	@Override 
+	public int getSendInfoSize() {
+		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getWeaponSendInfoSize();
 	}
 
 }

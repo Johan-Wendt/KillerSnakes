@@ -40,6 +40,40 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	}
 
 
+	public double getNextxStep(int steps, double rotation) {
+		if(rotation < 0) {
+			rotation += 360;
+		}
+		if(rotation > 360) {
+			rotation -= 360;
+		}
+		double newxPos = super.getxPos() + steps * Math.sin(Math.toRadians(rotation));
+		if(newxPos < 0) {
+			newxPos += Constants.GAME_WIDTH;
+		}
+		else if(newxPos > Constants.GAME_WIDTH) {
+			newxPos -= Constants.GAME_WIDTH;
+		}
+		return newxPos;
+		
+	}
+	public double getNextyStep(int steps, double rotation) {
+		if(rotation < 0) {
+			rotation += 360;
+		}
+		if(rotation > 360) {
+			rotation -= 360;
+		}
+		double newyPos = super.getyPos() - steps * Math.cos(Math.toRadians(rotation));
+		if(newyPos < 0) {
+			newyPos += Constants.GAME_HEIGHT;
+		}
+		else if(newyPos > Constants.GAME_HEIGHT) {
+			newyPos -= Constants.GAME_HEIGHT;
+		}
+		return newyPos;
+		
+	}
 
 	private double getNextxStep() {
 		double newxPos = super.getxPos() + Math.sin(Math.toRadians(super.getRotation()));

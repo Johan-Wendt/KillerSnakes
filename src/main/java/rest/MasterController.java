@@ -5,6 +5,8 @@ public interface MasterController extends Controller {
 
 	public void handleInput(int[] input);
 
-	public void sendOutPutPositions();
+	public void sendOutPut();
+	
+	public int[] getAllPositionsSend();
 
 }
