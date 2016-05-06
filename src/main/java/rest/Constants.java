@@ -8,6 +8,7 @@ public interface Constants {
 	public static final int INTS_SENT_PER_OBJECT = 7;
 
 	// Codes for client actions
+	public static final int PLAYER_TOKEN = 0;
 	public static final int PLAYER = 1;
 	public static final int BONUS = 2;
 	public static final int PROJECTILE = 3;
