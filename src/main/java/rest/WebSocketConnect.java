@@ -14,8 +14,17 @@ public class WebSocketConnect {
 			}
 		};
 		server.setHandler(wsHandler);
-		server.start();
-		server.join();
+		
+		
+		try {
+            server.start();
+            server.join();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            server.stop();
+        }
+		
 
 	}
 

@@ -24,6 +24,7 @@ public class SnakeMasterController implements MasterController {
 
 		// Just contemporary
 		playerController.createPlayer();
+		playerController.createPlayer();
 		// playerController.createPlayerAI();
 
 		controllers.add(new HappeningController(Types.HAPPENING));
