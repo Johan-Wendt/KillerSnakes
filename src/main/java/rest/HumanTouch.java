@@ -3,8 +3,11 @@ package rest;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.eclipse.jetty.websocket.api.RemoteEndpoint;
 import org.eclipse.jetty.websocket.api.Session;
@@ -16,12 +19,17 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 @WebSocket
 public class HumanTouch {
-	private static ArrayList<Session> sessions = new ArrayList<>();
-	//private Session session;
-	//private RemoteEndpoint remote;
+	// private static ArrayList<Session> sessions = new ArrayList<>();
+	private Session session;
+	private GameSession gameSession;
+	private static final ArrayList<HumanTouch> allPlayers = new ArrayList<>();
+	// private RemoteEndpoint remote;
 	// private GamePlan gamePlan = new GamePlan();
-	private static ArrayList<SnakeMasterController> masterControllers = new ArrayList<>();
-
+	// private static ArrayList<SnakeMasterController> masterControllers = new
+	// ArrayList<>();
+	private boolean wantsToJoin = false;
+	private boolean isInGame = false;
+	private String name = "";
 
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
@@ -35,25 +43,9 @@ public class HumanTouch {
 
 	@OnWebSocketConnect
 	public void onConnect(Session session) {
-		int playerToken = (sessions.size() % 2) + 1;
-		int [] intMessage = {Constants.PLAYER_TOKEN, playerToken, -1};
-		byte[] byteMessage = SnakeMasterController.integersToBytes(intMessage);
-		ByteBuffer buf = ByteBuffer.wrap(byteMessage);
-		try {
-			session.getRemote().sendBytes(buf);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
-		//this.session = session;
-		sessions.add(session);
-		System.out.println("Connect: " + sessions.get(sessions.size() - 1).getRemoteAddress().getAddress());
-		// remote = session.getRemote();
-
-		if (sessions.size() % 2 == 0) {
-			masterControllers.add(new SnakeMasterController(this));
-		}
-
+		this.session = session;
+		allPlayers.add(this);
 	}
 
 	@OnWebSocketMessage
@@ -61,8 +53,47 @@ public class HumanTouch {
 		char[] input = new char[3];
 		reader.read(input, 0, 3);
 		int[] realResult = numberify(input);
+		if (isInGame) {
+			gameSession.handleInput(realResult);
+		} else {
+			if (realResult[1] == 9) {
+				if (realResult[2] == 1) {
+					wantsToJoin = true;
+				} else if (realResult[2] == 2) {
+					quitGame();
+				}
 
-		masterControllers.get(0).handleInput(realResult);
+			} else if (realResult[1] == 8) {
+				Timer timer = new Timer();
+				HumanTouch creator = this;
+
+				timer.schedule(new TimerTask() {
+					public void run() {
+
+						for (HumanTouch player : allPlayers) {
+							if (!isInGame && player.isWantsToJoin() && !player.isInGame) {
+								gameSession = new GameSession(creator, player);
+								player.setWantsToJoin(false);
+								player.setInGame(true);
+								isInGame = true;
+								wantsToJoin = false;
+								timer.cancel();
+							}
+						}
+					}
+				}, 0, 1000);
+
+			} else if (realResult[1] == 7) {
+				if (realResult[2] == 1) {
+					char[] message = new char[40];
+					reader.read(message);
+
+					name = new String(message);
+					pushAllNames();
+				}
+			}
+		}
+
 	}
 
 	public static int[] numberify(char[] arr) {
@@ -77,18 +108,77 @@ public class HumanTouch {
 
 	public void updatePlayer(ByteBuffer buf) {
 		try {
-			for(Session session: sessions) {
-				ByteBuffer bufCopy = buf.duplicate();
-				session.getRemote().sendBytes(bufCopy);
+			// for(Session session: sessions) {
+			// ByteBuffer bufCopy = buf.duplicate();
+			if (session.isOpen()) {
+				session.getRemote().sendBytes(buf);
 			}
-			
+			// }
+
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
 		}
 
 	}
-	
 
+	public void setGameSession(GameSession gameSession) {
+		this.gameSession = gameSession;
+	}
 
+	public boolean isWantsToJoin() {
+		return wantsToJoin;
+	}
+
+	public void setWantsToJoin(boolean wantsToJoin) {
+		this.wantsToJoin = wantsToJoin;
+	}
+
+	public boolean isInGame() {
+		return isInGame;
+	}
+
+	public void setInGame(boolean isInGame) {
+		this.isInGame = isInGame;
+	}
+
+	private void pushAllNames() {
+		for (HumanTouch player : allPlayers) {
+			for (HumanTouch sender : allPlayers) {
+				player.sendStringMessage(sender.getName(), StringMessageTypes.PLAYER_NAME);
+			}
+		}
+	}
+	private void sendStringMessage(String message, StringMessageTypes messageType) {
+
+		String sendMessage = messageType.prefix() + message;
+		try {
+
+			if (session.isOpen()) {
+				session.getRemote().sendString(sendMessage);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace(System.err);
+		}
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void quitGame() {
+		try {
+			session.close();
+			session.disconnect();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
+		allPlayers.remove(this);
+		if (gameSession != null) {
+			gameSession.quitGame(this);
+		}
+	}
 
 }

@@ -11,10 +11,10 @@ public class SnakeMasterController implements MasterController {
 	private PlayerController playerController;
 	private ProjectileController projectileController;
 	private GameLoop gameLoop;
-	private HumanTouch socket;
+	private GameSession socket;
 	private ArrayList<TypeController> controllers = new ArrayList<>();
 
-	public SnakeMasterController(HumanTouch socket) {
+	public SnakeMasterController(GameSession socket) {
 
 		this.socket = socket;
 
