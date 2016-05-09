@@ -143,9 +143,11 @@ public class HumanTouch {
 
 	private void pushAllNames() {
 		for (HumanTouch player : allPlayers) {
+			String result = "";
 			for (HumanTouch sender : allPlayers) {
-				player.sendStringMessage(sender.getName(), StringMessageTypes.PLAYER_NAME);
+				result = result + sender.getName() + "<br>";
 			}
+			player.sendStringMessage(result, StringMessageTypes.PLAYER_NAME);
 		}
 	}
 	private void sendStringMessage(String message, StringMessageTypes messageType) {
