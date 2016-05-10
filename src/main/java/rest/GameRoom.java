@@ -28,7 +28,7 @@ public class GameRoom {
 		String result = "";
 		ArrayList<String> names = new ArrayList (gameRooms.keySet());
 		for(String name: names) {
-			result = result + name + "<br>";
+			result = result + name + ",";
 		}
 		return result;
 	}

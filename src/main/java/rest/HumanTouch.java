@@ -159,7 +159,10 @@ public class HumanTouch {
 			player.sendStringMessage(result, StringMessageTypes.PLAYER_NAME);
 		}
 	}
-	pushAllGameNames() {
+	private void pushAllGameNames() {
+		for (HumanTouch player : allPlayers) {
+			player.sendStringMessage(GameRoom.getAllRoomNames(), StringMessageTypes.GAMEROOM_NAME);
+		}
 		
 	}
 	private void sendStringMessage(String message, StringMessageTypes messageType) {
