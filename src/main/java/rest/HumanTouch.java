@@ -83,13 +83,22 @@ public class HumanTouch {
 					}
 				}, 0, 1000);
 
-			} else if (realResult[1] == 7) {
+			} 
+			else if (realResult[1] == 7) {
 				if (realResult[2] == 1) {
 					char[] message = new char[40];
 					reader.read(message);
 
 					name = new String(message);
 					pushAllNames();
+				}
+				if (realResult[2] == 2) {
+					char[] message = new char[40];
+					reader.read(message);
+
+					name = new String(message);
+					GameRoom gameRoom = new GameRoom(name, 2);
+					pushAllGameNames();
 				}
 			}
 		}
@@ -149,6 +158,9 @@ public class HumanTouch {
 			}
 			player.sendStringMessage(result, StringMessageTypes.PLAYER_NAME);
 		}
+	}
+	pushAllGameNames() {
+		
 	}
 	private void sendStringMessage(String message, StringMessageTypes messageType) {
 

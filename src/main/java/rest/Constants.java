@@ -16,7 +16,7 @@ public interface Constants {
 	
 	
 	//Game board
-	public static final int GAME_WIDTH = 600;
-	public static final int GAME_HEIGHT = 400;
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 600;
 
 }
