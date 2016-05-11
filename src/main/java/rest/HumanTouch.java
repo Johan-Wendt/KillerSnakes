@@ -96,8 +96,8 @@ public class HumanTouch {
 					char[] message = new char[40];
 					reader.read(message);
 
-					name = new String(message);
-					GameRoom gameRoom = new GameRoom(name, 2);
+					String gameName = new String(message);
+					GameRoom gameRoom = new GameRoom(gameName, 2);
 					pushAllGameNames();
 				}
 			}
