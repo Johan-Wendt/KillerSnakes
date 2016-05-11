@@ -92,7 +92,7 @@ public class HumanTouch {
 					name = new String(message);
 					pushAllNames();
 				}
-				if (realResult[2] == 2) {
+				else if (realResult[2] == 2) {
 					char[] message = new char[40];
 					reader.read(message);
 
