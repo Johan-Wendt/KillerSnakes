@@ -85,20 +85,23 @@ public class HumanTouch {
 
 			} 
 			else if (realResult[1] == 7) {
+				char[] message = new char[40];
+				reader.read(message);
 				if (realResult[2] == 1) {
-					char[] message = new char[40];
-					reader.read(message);
-
 					name = new String(message);
 					pushAllNames();
+					sendStringMessage(GameRoom.getAllRoomNames(), StringMessageTypes.GAMEROOM_NAME);
 				}
 				else if (realResult[2] == 2) {
-					char[] message = new char[40];
-					reader.read(message);
-
 					String gameName = new String(message);
 					GameRoom gameRoom = new GameRoom(gameName, 2);
 					pushAllGameNames();
+				}
+				else if (realResult[2] == 3) {
+					String roomName = new String(message);
+					GameRoom added = GameRoom.addPlayer(roomName, this);
+					added.sendRoomInfo();
+					
 				}
 			}
 		}
@@ -165,7 +168,7 @@ public class HumanTouch {
 		}
 		
 	}
-	private void sendStringMessage(String message, StringMessageTypes messageType) {
+	public void sendStringMessage(String message, StringMessageTypes messageType) {
 
 		String sendMessage = messageType.prefix() + message;
 		try {

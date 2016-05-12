@@ -15,12 +15,14 @@ public class GameRoom {
 		gameRooms.put(name, this);
 	}
 	
+	
 	public void addPlayer(HumanTouch player) {
 		players.add(player);
 	}
 	public void removePlayer(HumanTouch player) {
 		players.remove(this);
 	}
+	
 	public void removeGameRoom() {
 		gameRooms.remove(this);
 	}
@@ -29,6 +31,27 @@ public class GameRoom {
 		ArrayList<String> names = new ArrayList (gameRooms.keySet());
 		for(String name: names) {
 			result = result + name + ",";
+		}
+		return result;
+	}
+	public static GameRoom addPlayer(String gameRoomName, HumanTouch player) {
+		GameRoom added = gameRooms.get(gameRoomName);
+		added.addPlayer(player);
+		return added;
+	}
+	public static void removePlayer(String gameRoomName, HumanTouch player) {
+		
+		gameRooms.get(gameRoomName).removePlayer(player);
+	}
+	public void sendRoomInfo() {
+		for(HumanTouch player: players) {
+			player.sendStringMessage(getRoomInfo(), StringMessageTypes.GAMEROOM_MEMBERS);
+		}
+	}
+	public String getRoomInfo() {
+		String result = name;
+		for(HumanTouch player: players) {
+			result = result + "," +  player.getName();
 		}
 		return result;
 	}
