@@ -157,7 +157,7 @@ public class HumanTouch {
 		for (HumanTouch player : allPlayers) {
 			String result = "";
 			for (HumanTouch sender : allPlayers) {
-				result = result + sender.getName() + "<br>";
+				result = result + sender.getName() + ",";
 			}
 			player.sendStringMessage(result, StringMessageTypes.PLAYER_NAME);
 		}
