@@ -1,7 +1,7 @@
 package rest;
 
 public enum StringMessageTypes {
-	PLAYER_NAME("p"), GAMEROOM_NAME("r"), GAMEROOM_MEMBERS("m");
+	ALL_PLAYER_NAMES("p"), GAMEROOM_NAME("r"), GAMEROOM_MEMBERS("m"), ERROR_CODE("e"), PLAYER_NAME("n"), CURRENT_GAMEROOM_NAME("c");
 
 	private final String prefix;
 

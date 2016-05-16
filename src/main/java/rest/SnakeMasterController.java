@@ -12,6 +12,7 @@ public class SnakeMasterController implements MasterController {
 	private ProjectileController projectileController;
 	private GameLoop gameLoop;
 	private GameSession socket;
+
 	private ArrayList<TypeController> controllers = new ArrayList<>();
 
 	public SnakeMasterController(GameSession socket) {
@@ -29,9 +30,9 @@ public class SnakeMasterController implements MasterController {
 
 		controllers.add(new HappeningController(Types.HAPPENING));
 		controllers.add(playerController);
-		
+
 		controllers.add(projectileController);
-		
+
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
 	}
@@ -41,20 +42,20 @@ public class SnakeMasterController implements MasterController {
 		controllerRound();
 		disposeOfRemovables();
 		sendToClient();
-		
+
 	}
-	
+
 	public void controllerRound() {
 		for (TypeController controller : controllers) {
 			controller.controllerRound();
 		}
-		
+
 	}
 
 	private void crashCheck() {
 		testCrashInto(getCrashers());
 	}
-	
+
 	public void disposeOfRemovables() {
 		for (TypeController controller : controllers) {
 			controller.disposeOfRemovables();
@@ -79,6 +80,8 @@ public class SnakeMasterController implements MasterController {
 			playerController.shoot(projectileController, Players.getPlayer(input[0]));
 		} else if (input[1] == 4) {
 			playerController.changeWeapon(Players.getPlayer(input[0]));
+		} else if (input[1] == 5) {
+			socket.quitGame(input[0]);
 		}
 	}
 
@@ -104,11 +107,12 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	private void sendMessage(int[] message) {
-		byte[] byteMessage = integersToBytes(message);
+		if (socket != null) {
+			byte[] byteMessage = integersToBytes(message);
 
-		ByteBuffer buf = ByteBuffer.wrap(byteMessage);
-		socket.updatePlayer(buf);
-
+			ByteBuffer buf = ByteBuffer.wrap(byteMessage);
+			socket.updatePlayer(buf);
+		}
 	}
 
 	public int[] getAllPositionsSend() {
@@ -140,14 +144,19 @@ public class SnakeMasterController implements MasterController {
 	}
 
 	public void testCrashInto(ArrayList<Interactor> violaters) {
-		
+
 		for (TypeController controller : controllers) {
 			controller.testCrashInto(violaters);
 		}
 	}
+
 	private void sendToClient() {
 		sendOutPut();
-		
+
+	}
+
+	public void setSocket(GameSession socket) {
+		this.socket = socket;
 	}
 
 }

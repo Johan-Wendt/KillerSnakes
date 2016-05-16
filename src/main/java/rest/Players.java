@@ -2,8 +2,8 @@ package rest;
 
 
 public enum Players implements PlayerDetails {
-	PLAYER1(1, Directions.UP, 100, 100), PLAYER2(2, Directions.DOWN, 140, 140), PLAYER3(3, Directions.RIGHT, 180,
-			180), PLAYER4(4, Directions.LEFT, 220, 220);
+	PLAYER1(1, Directions.UP, 100, 100, 1), PLAYER2(2, Directions.DOWN, 140, 140, 2), PLAYER3(3, Directions.RIGHT, 180,
+			180, 3), PLAYER4(4, Directions.LEFT, 220, 220, 4);
 
 	private final int type;
 	private final int width;
@@ -17,9 +17,10 @@ public enum Players implements PlayerDetails {
 	private final int startY;
 	private final int imunityLength; 
 	private final String borders;
+	private final int token;
 
 
-	Players(int subType, Directions startDirection, int startX, int startY) {
+	Players(int subType, Directions startDirection, int startX, int startY, int token) {
 		type = Constants.PLAYER;
 		startActingSpeed = 60;
 		startMovingSpeed = 2;
@@ -33,6 +34,7 @@ public enum Players implements PlayerDetails {
 		this.startDirection = startDirection;
 		this.startX = startX;
 		this.startY = startY;
+		this.token = token;
 
 	}
 
@@ -115,6 +117,9 @@ public enum Players implements PlayerDetails {
 	@Override
 	public String borders() {
 		return borders;
+	}
+	public int token() {
+		return token;
 	}
 
 }

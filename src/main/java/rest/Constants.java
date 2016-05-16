@@ -13,6 +13,8 @@ public interface Constants {
 	public static final int BONUS = 2;
 	public static final int PROJECTILE = 3;
 	public static final int WEAPON_INFO = 4;
+	public static final int ERROR_CODE = 5;
+	public static final int QUIT_CURREN_GAME = 6;
 	
 	
 	//Game board

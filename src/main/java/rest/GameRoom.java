@@ -7,24 +7,39 @@ public class GameRoom {
 	private ArrayList<HumanTouch> players = new ArrayList<>();
 	private static final HashMap<String, GameRoom> gameRooms = new HashMap<>();
 	private String name;
-	private int maxNumberOfPlayers;
+	private int maxNumberOfHumamnPlayers;
+	private int numberOfComputerPlayer;
 	
-	public GameRoom(String name, int maxNumberOfPlayers) {
+	public GameRoom(String name, int maxNumberOfPlayers, int numberOfComputerPlayer) {
+		
 		this.name = name;
-		this.maxNumberOfPlayers = maxNumberOfPlayers;
-		gameRooms.put(name, this);
+		this.maxNumberOfHumamnPlayers = maxNumberOfPlayers;
+		this.numberOfComputerPlayer = numberOfComputerPlayer;
+		System.out.println("maxNumberOfPlayers" + maxNumberOfPlayers);
+		System.out.println("numberOfComputerPlayer" + numberOfComputerPlayer);
+		
 	}
 	
 	
 	public void addPlayer(HumanTouch player) {
 		players.add(player);
+		sendRoomInfo();
 	}
 	public void removePlayer(HumanTouch player) {
-		players.remove(this);
+		players.remove(player);
+		sendRoomInfo();
+	}
+	public boolean registerGameRoom() {
+		if(gameRooms.containsKey(this.getName())) {
+			return false;
+		}
+		gameRooms.put(this.getName(), this);
+		return true;
+		// gameRooms.put(name, this);
 	}
 	
 	public void removeGameRoom() {
-		gameRooms.remove(this);
+		gameRooms.remove(name);
 	}
 	public static String getAllRoomNames() {
 		String result = "";
@@ -49,11 +64,32 @@ public class GameRoom {
 		}
 	}
 	public String getRoomInfo() {
-		String result = name;
+		String result = "";
 		for(HumanTouch player: players) {
 			result = result + "," +  player.getName();
 		}
 		return result;
+	}
+	public void startGame() {
+		GameSession gameSession = new GameSession(players);
+		
+		for(HumanTouch player: players) {
+			player.sendStringMessage("", StringMessageTypes.CURRENT_GAMEROOM_NAME);
+			player.sendStringMessage("", StringMessageTypes.GAMEROOM_MEMBERS);
+			player.sendStringMessage("", StringMessageTypes.CURRENT_GAMEROOM_NAME);
+			player.setCurrentGameroom(null);
+		}
+		removeGameRoom(); 
+		HumanTouch.pushAllGameNames();
+	}
+	public static void startGame(String gameRoomName) {
+		GameRoom gameRoom = gameRooms.get(gameRoomName);
+		gameRoom.startGame();
+	}
+
+
+	public String getName() {
+		return name;
 	}
 
 }
