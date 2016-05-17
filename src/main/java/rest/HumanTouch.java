@@ -120,7 +120,9 @@ public class HumanTouch {
 		int arrayPointer = 0;
 		boolean searching = true;
 		while(searching && pointer < mess.length) {
+			if(mess[pointer] != ',') {
 			partResult = partResult + mess[pointer];
+			}
 			pointer ++;
 			if(mess[pointer] == ';') {
 				result[arrayPointer] = new String(partResult);
@@ -128,6 +130,7 @@ public class HumanTouch {
 			}
 			else if(mess[pointer] == ',') {
 				result[arrayPointer] = new String(partResult);
+				partResult = "";
 				arrayPointer ++;
 			}
 			

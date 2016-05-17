@@ -20,8 +20,14 @@ public class GameRoom {
 	
 	
 	public void addPlayer(HumanTouch player) {
+		if(player.getCurrentGameroom() != null) {
+			player.getCurrentGameroom().removePlayer(player);
+		}
 		players.add(player);
 		sendRoomInfo();
+		if(isFull()) {
+			HumanTouch.pushAllGameNames();
+		}
 	}
 	public void removePlayer(HumanTouch player) {
 		players.remove(player);
@@ -44,8 +50,9 @@ public class GameRoom {
 		String result = "";
 		ArrayList<String> names = new ArrayList (gameRooms.keySet());
 		for(String roomName: names) {
-			if(!getRoom(roomName).isFull())
+			if(!getRoom(roomName).isFull()) {
 			result = result + roomName + ",";
+			}
 		}
 		return result;
 	}

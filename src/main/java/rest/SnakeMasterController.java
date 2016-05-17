@@ -21,12 +21,6 @@ public class SnakeMasterController implements MasterController {
 
 		playerController = new PlayerController(Types.PLAYER);
 		projectileController = new ProjectileController(Types.PROJECTILE);
-		// weaponController = new WeaponController(this);
-
-		// Just contemporary
-		playerController.createPlayer();
-		playerController.createPlayer();
-		// playerController.createPlayerAI();
 		int n = 0;
 		while(n < humanPlayers) {
 			playerController.createPlayer();
