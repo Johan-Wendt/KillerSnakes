@@ -15,8 +15,6 @@ public class GameRoom {
 		this.name = name;
 		this.maxNumberOfHumamnPlayers = maxNumberOfPlayers;
 		this.numberOfComputerPlayer = numberOfComputerPlayer;
-		System.out.println("maxNumberOfPlayers" + maxNumberOfPlayers);
-		System.out.println("numberOfComputerPlayer" + numberOfComputerPlayer);
 		
 	}
 	
@@ -41,11 +39,13 @@ public class GameRoom {
 	public void removeGameRoom() {
 		gameRooms.remove(name);
 	}
+	//N.B, only returns non full game rooms
 	public static String getAllRoomNames() {
 		String result = "";
 		ArrayList<String> names = new ArrayList (gameRooms.keySet());
-		for(String name: names) {
-			result = result + name + ",";
+		for(String roomName: names) {
+			if(!getRoom(roomName).isFull())
+			result = result + roomName + ",";
 		}
 		return result;
 	}
@@ -71,7 +71,7 @@ public class GameRoom {
 		return result;
 	}
 	public void startGame() {
-		GameSession gameSession = new GameSession(players);
+		GameSession gameSession = new GameSession(players, numberOfComputerPlayer);
 		
 		for(HumanTouch player: players) {
 			player.sendStringMessage("", StringMessageTypes.CURRENT_GAMEROOM_NAME);
@@ -92,4 +92,10 @@ public class GameRoom {
 		return name;
 	}
 
+	public static GameRoom getRoom(String name) {
+		return gameRooms.get(name);
+	}
+	public boolean isFull() {
+		return maxNumberOfHumamnPlayers == players.size();
+	}
 }

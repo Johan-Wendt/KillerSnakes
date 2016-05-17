@@ -11,7 +11,7 @@ import org.eclipse.jetty.websocket.api.Session;
 public class GameSession {
 	private HashMap<Integer, HumanTouch> players = new HashMap<>();
 	private SnakeMasterController masterController;
-
+/**
 	public GameSession(HumanTouch player1, HumanTouch player2) {
 		sendPlayerToken(player1, 1);
 		sendPlayerToken(player2, 2);
@@ -42,6 +42,22 @@ public class GameSession {
 			player.setGameSession(this);
 		}
 		masterController = new SnakeMasterController(this);
+	}
+	**/
+	public GameSession(ArrayList<HumanTouch> playerArray, int computerPlayers) {
+		int n = 0;
+		while(n < playerArray.size()) {
+			players.put(Players.getPlayer(n + 1).token(), playerArray.get(n));
+			n++;
+		}
+		for (Map.Entry<Integer, HumanTouch> entry : players.entrySet()) {
+			Integer token = entry.getKey();
+		    HumanTouch player = entry.getValue();
+		    sendPlayerToken(player, token);
+		//    player.setInGame(true);
+			player.setGameSession(this);
+		}
+		masterController = new SnakeMasterController(this, playerArray.size(), computerPlayers);
 	}
 
 	public void updatePlayer(ByteBuffer buf) {

@@ -15,7 +15,7 @@ public class SnakeMasterController implements MasterController {
 
 	private ArrayList<TypeController> controllers = new ArrayList<>();
 
-	public SnakeMasterController(GameSession socket) {
+	public SnakeMasterController(GameSession socket, int humanPlayers, int ComputerPlayers) {
 
 		this.socket = socket;
 
@@ -27,6 +27,17 @@ public class SnakeMasterController implements MasterController {
 		playerController.createPlayer();
 		playerController.createPlayer();
 		// playerController.createPlayerAI();
+		int n = 0;
+		while(n < humanPlayers) {
+			playerController.createPlayer();
+			n++;
+		}
+		int k = 0;
+		while(k < ComputerPlayers) {
+			playerController.createPlayerAI();
+			k++;
+		}
+
 
 		controllers.add(new HappeningController(Types.HAPPENING));
 		controllers.add(playerController);
@@ -35,6 +46,7 @@ public class SnakeMasterController implements MasterController {
 
 		gameLoop = new GameLoop(this);
 		gameLoop.runGameLoop();
+		
 	}
 
 	public void gameRound() {
