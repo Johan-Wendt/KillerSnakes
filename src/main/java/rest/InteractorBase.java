@@ -18,7 +18,8 @@ public abstract class InteractorBase implements Interactor {
 	private boolean TestGettingCrashed = true;
 	private boolean invincible = false;
 	private Interactor imuneToCrash = null;
-	private final LinkedList<Integer> queuedSounds = new LinkedList<>();
+//	private final LinkedList<Integer> queuedSounds = new LinkedList<>();
+	private int queuedSound = -1;
 
 	private SVGPath borders;
 	
@@ -224,10 +225,27 @@ public abstract class InteractorBase implements Interactor {
 	public void setTestGettingCrashed(boolean testGettingCrashed) {
 		TestGettingCrashed = testGettingCrashed;
 	}
-
+	/**
 	public void addQueuedSounds(int type, int subType) {
 		queuedSounds.add(type);
 		queuedSounds.add(subType);
+	}
+
+	public LinkedList<Integer> getQueuedSounds() {
+		return queuedSounds;
+	}
+	**/
+	public void addQueuedSound(Sounds sound) {
+		queuedSound = sound.soundNumber();
+	}
+
+	public int getQueuedSound() {
+		int result = queuedSound;
+		queuedSound = -1;
+		return result;
+	}
+	public boolean hasQueuedSound() {
+		return queuedSound > -1;
 	}
 
 }

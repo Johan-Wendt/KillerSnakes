@@ -62,7 +62,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 	private void handleBonus(Happenings bonus) {
 		setCurrentActingPoints(-6 * getActingSpeed() * getMovingSpeed());
-		super.addQueuedSounds(bonus.type(), bonus.subType());
+		super.addQueuedSound(Sounds.BONUS_TAKEN);
 		switch (bonus) {
 		case SPPED:
 			setMovingSpeed((getMovingSpeed() + 1));

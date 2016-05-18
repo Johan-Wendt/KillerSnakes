@@ -15,6 +15,7 @@ public interface Constants {
 	public static final int WEAPON_INFO = 4;
 	public static final int ERROR_CODE = 5;
 	public static final int QUIT_CURREN_GAME = 6;
+	public static final int PLAY_SOUND = 7;
 	
 	
 	//Game board

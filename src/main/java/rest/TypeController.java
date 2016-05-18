@@ -19,8 +19,11 @@ public interface TypeController extends Controller {
 	
 	public ArrayList<Interactor> getPossibleVictims();
 	
-	public int getSendInfoSize();
+	public int getSendInfoSize(boolean hasSoundToPlay);
 	
 	public int appendAllPositionsSend(int[] message, int pointer);
+	
+	public int appendAllSoundsSend(int[] message, int pointer);
+	
 
 }

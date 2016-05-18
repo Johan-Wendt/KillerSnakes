@@ -111,8 +111,29 @@ public abstract class TypeControllerBase implements TypeController {
 			}
 		}
 	}
-	public int getSendInfoSize() {
-		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1;
+	public int getSendInfoSize(boolean hasSoundToPlay) {
+		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getSoundSendInfoSize(hasSoundToPlay);
 	}
+	
+	public int appendAllSoundsSend(int[] message, int pointer) {
 
+		for (Actor actor : actingObjects) {
+			if(actor.hasQueuedSound()) {
+				message[pointer] = actor.getQueuedSound();
+				pointer++;
+			}
+		}
+		return pointer;
+	}
+	
+	public int getSoundSendInfoSize(boolean hasSoundToPlay) {
+		int result = 0;
+		for (Actor actor : actingObjects) {
+			if(actor.hasQueuedSound()) {
+				hasSoundToPlay = true;
+				result++;
+			}
+		}
+		return result;
+	}
 }

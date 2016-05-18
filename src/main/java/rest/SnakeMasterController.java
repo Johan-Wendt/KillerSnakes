@@ -12,6 +12,7 @@ public class SnakeMasterController implements MasterController {
 	private ProjectileController projectileController;
 	private GameLoop gameLoop;
 	private GameSession socket;
+	private boolean hasSoundToPlay = false;
 
 	private ArrayList<TypeController> controllers = new ArrayList<>();
 
@@ -124,14 +125,29 @@ public class SnakeMasterController implements MasterController {
 	public int[] getAllPositionsSend() {
 		int resultSize = 0;
 		for (TypeController controller : controllers) {
-			resultSize += controller.getSendInfoSize();
+			resultSize += controller.getSendInfoSize(hasSoundToPlay);
+		}
+		if(hasSoundToPlay) {
+			//The Constant SOUND and the ending -1 is not added so we have to compensate
+			resultSize += 2;
 		}
 		int[] result = new int[resultSize];
 		int pointer = 0;
 		for (TypeController controller : controllers) {
 			pointer = controller.appendAllPositionsSend(result, pointer);
 		}
+		
+		
+		if(hasSoundToPlay) {
+			result[pointer] = Constants.PLAY_SOUND;
+			pointer ++;
+			for (TypeController controller : controllers) {
+				pointer = controller.appendAllSoundsSend(result, pointer);
+			}
+			hasSoundToPlay = false;
+		}
 		playerController.appendWeaponInfoSend(result, pointer);
+		
 		return result;
 	}
 

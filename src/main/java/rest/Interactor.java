@@ -59,4 +59,10 @@ public interface Interactor {
 	public boolean isTestGettingCrashed();
 
 	public void setTestGettingCrashed(boolean testGettingCrashed);
+	
+	public boolean hasQueuedSound();
+	
+	public int getQueuedSound();
+	
+	public void addQueuedSound(Sounds sound);
 }
