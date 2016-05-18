@@ -1,5 +1,7 @@
 package rest;
 
+import java.util.LinkedList;
+
 import javafx.scene.shape.SVGPath;
 import javafx.scene.shape.Shape;
 
@@ -16,6 +18,7 @@ public abstract class InteractorBase implements Interactor {
 	private boolean TestGettingCrashed = true;
 	private boolean invincible = false;
 	private Interactor imuneToCrash = null;
+	private final LinkedList<Integer> queuedSounds = new LinkedList<>();
 
 	private SVGPath borders;
 	
@@ -220,6 +223,11 @@ public abstract class InteractorBase implements Interactor {
 
 	public void setTestGettingCrashed(boolean testGettingCrashed) {
 		TestGettingCrashed = testGettingCrashed;
+	}
+
+	public void addQueuedSounds(int type, int subType) {
+		queuedSounds.add(type);
+		queuedSounds.add(subType);
 	}
 
 }

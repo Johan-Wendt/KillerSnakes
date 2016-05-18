@@ -1,11 +1,12 @@
 package rest;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class PlayerBase extends GrowerFront implements Player {
 	private Weapons equippedWeapon = Weapons.KNIFE;
 	private ArrayList<Integer> ammo = new ArrayList<>();
-
+ 
 	public PlayerBase(Players player) {
 		super(player);
 		reStart();
@@ -61,6 +62,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 	private void handleBonus(Happenings bonus) {
 		setCurrentActingPoints(-6 * getActingSpeed() * getMovingSpeed());
+		super.addQueuedSounds(bonus.type(), bonus.subType());
 		switch (bonus) {
 		case SPPED:
 			setMovingSpeed((getMovingSpeed() + 1));
