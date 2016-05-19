@@ -35,6 +35,8 @@ public class HumanTouch {
 	@OnWebSocketError
 	public void onError(Throwable t) {
 		System.out.println("Error: " + t.getMessage());
+		System.out.println("quit through error");
+		quitKillerSnakes();
 	}
 
 	@OnWebSocketConnect

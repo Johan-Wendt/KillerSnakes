@@ -42,6 +42,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 	@Override
 	public void handleCrashing(Interactor victim) {
+		super.addQueuedSound(Sounds.CRASH);
 
 		int type = victim.getInteractor().type();
 		switch (type) {
