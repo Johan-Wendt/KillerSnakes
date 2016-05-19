@@ -156,10 +156,16 @@ public class HumanTouch {
 			if (session.isOpen()) {
 				session.getRemote().sendBytes(buf);
 			}
+			else {
+				System.out.println("quit through IOexception");
+				quitKillerSnakes();
+			}
 			// }
 
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
+			System.out.println("quit through IOexception");
+			quitKillerSnakes();
 		}
 
 	}
@@ -210,6 +216,8 @@ public class HumanTouch {
 
 		} catch (IOException e) {
 			e.printStackTrace(System.err);
+			System.out.println("quit through IOexception");
+			quitKillerSnakes();
 		}
 		
 	}

@@ -125,7 +125,13 @@ public class SnakeMasterController implements MasterController {
 	public int[] getAllPositionsSend() {
 		int resultSize = 0;
 		for (TypeController controller : controllers) {
-			resultSize += controller.getSendInfoSize(hasSoundToPlay);
+			resultSize += controller.getSendInfoSize();
+		}
+		for (TypeController controller : controllers) {
+			if(controller.hasSoundToPlay()) {
+				hasSoundToPlay = true;
+				controller.setHasSoundToPlay(false);
+			}
 		}
 		if(hasSoundToPlay) {
 			//The Constant SOUND and the ending -1 is not added so we have to compensate

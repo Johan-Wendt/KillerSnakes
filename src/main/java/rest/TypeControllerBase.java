@@ -6,6 +6,7 @@ import java.util.Iterator;
 public abstract class TypeControllerBase implements TypeController {
 	private ArrayList<Actor> actingObjects = new ArrayList<>();
 	private int typesControlled;
+	private boolean hasSoundToPlay;
 
 	public TypeControllerBase(Types type) {
 		setTypeControlled(type);
@@ -111,8 +112,8 @@ public abstract class TypeControllerBase implements TypeController {
 			}
 		}
 	}
-	public int getSendInfoSize(boolean hasSoundToPlay) {
-		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getSoundSendInfoSize(hasSoundToPlay);
+	public int getSendInfoSize() {
+		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getSoundSendInfoSize();
 	}
 	
 	public int appendAllSoundsSend(int[] message, int pointer) {
@@ -126,7 +127,7 @@ public abstract class TypeControllerBase implements TypeController {
 		return pointer;
 	}
 	
-	public int getSoundSendInfoSize(boolean hasSoundToPlay) {
+	public int getSoundSendInfoSize() {
 		int result = 0;
 		for (Actor actor : actingObjects) {
 			if(actor.hasQueuedSound()) {
@@ -136,4 +137,13 @@ public abstract class TypeControllerBase implements TypeController {
 		}
 		return result;
 	}
+
+	public boolean hasSoundToPlay() {
+		return hasSoundToPlay;
+		
+	}
+	public void setHasSoundToPlay(boolean hasSound) {
+		hasSoundToPlay = hasSound;
+	}
+	
 }

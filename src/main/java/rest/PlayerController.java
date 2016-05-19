@@ -61,8 +61,8 @@ public class PlayerController extends TypeControllerBase {
 		
 	}
 	@Override 
-	public int getSendInfoSize(boolean hasSoundToPlay) {
-		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getSoundSendInfoSize(hasSoundToPlay) + getWeaponSendInfoSize();
+	public int getSendInfoSize() {
+		return 1 + getLength() * Constants.INTS_SENT_PER_OBJECT + 1 + getSoundSendInfoSize() + getWeaponSendInfoSize();
 	}
 
 }
