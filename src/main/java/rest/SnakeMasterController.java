@@ -151,6 +151,8 @@ public class SnakeMasterController implements MasterController {
 				pointer = controller.appendAllSoundsSend(result, pointer);
 			}
 			hasSoundToPlay = false;
+			result[pointer] = -1;
+			pointer ++;
 		}
 		playerController.appendWeaponInfoSend(result, pointer);
 		

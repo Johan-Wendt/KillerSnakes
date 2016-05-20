@@ -17,19 +17,8 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		super.setMovingSpeed(player.startMovingSpeed());
 
 		loadUpAmmo();
-
-		// setLength(player.startLength(), player.imunityLength());
-
 	}
 
-	// public PlayerBase(PlayerDetails player, boolean head) {
-	// super(player, head);
-
-	// }
-	/**
-	 * @Override public void act() { int n = 0; while(n <
-	 *           super.getMovingSpeed()) { super.act(); n++; } }
-	 **/
 	@Override
 	public void handleGettingCrashed(Interactor violator) {
 		int type = violator.getInteractor().type();
@@ -42,13 +31,14 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 	@Override
 	public void handleCrashing(Interactor victim) {
-		super.addQueuedSound(Sounds.CRASH);
+		
 
 		int type = victim.getInteractor().type();
 		switch (type) {
 		case Constants.PLAYER:
 			if (!(super.isInvincible())) {
 				// GrowerTail tail = (GrowerTail) victim;
+				super.addQueuedSound(Sounds.CRASH);
 				deathPenalty();
 				break;
 			}

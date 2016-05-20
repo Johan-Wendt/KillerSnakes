@@ -30,6 +30,8 @@ public class HumanTouch {
 	@OnWebSocketClose
 	public void onClose(int statusCode, String reason) {
 		System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);
+		System.out.println("quit through error");
+		quitKillerSnakes();
 	}
 
 	@OnWebSocketError
