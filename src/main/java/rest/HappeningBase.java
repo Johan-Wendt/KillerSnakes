@@ -8,6 +8,7 @@ public abstract class HappeningBase extends ActorBase implements Happening {
 		this.longevity = longevity;
 		this.setxPos(xPos);
 		this.setyPos(yPos);
+		super.setInvincible(5);
 	}
 
 	@Override
@@ -24,6 +25,11 @@ public abstract class HappeningBase extends ActorBase implements Happening {
 		int type = violator.getInteractor().type();
 
 		switch (type) {
+		case Constants.PLAYER:
+			if(!isInvincible()) {
+				super.setToBeRemoved();
+			}
+			break;
 		case Constants.BONUS:
 			break;
 		default:

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public abstract class PlayerBase extends GrowerFront implements Player {
 	private Weapons equippedWeapon = Weapons.KNIFE;
 	private ArrayList<Integer> ammo = new ArrayList<>();
- 
+
 	public PlayerBase(Players player) {
 		super(player);
 		reStart();
@@ -31,7 +31,6 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 	@Override
 	public void handleCrashing(Interactor victim) {
-		
 
 		int type = victim.getInteractor().type();
 		switch (type) {
@@ -45,8 +44,9 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 			break;
 		case Constants.BONUS:
 			Bonus bonus = (Bonus) victim;
-			handleBonus(bonus.getBonus());
-
+			if (!bonus.isInvincible()) {
+				handleBonus(bonus.getBonus());
+			}
 		}
 
 	}
@@ -141,21 +141,20 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		int ammonition = ammo.get(weapon);
 		if (ammonition > 0) {
 			ammo.set(weapon, ammonition - equippedWeapon.numberConsumed());
-			
+
 			return true;
-		}
-		else {
+		} else {
 			changeWeapon();
-		return false;
+			return false;
 		}
 
 	}
-	public int [] getWeaponInfoSend() {
+
+	public int[] getWeaponInfoSend() {
 		int weapon = equippedWeapon.subType();
-		
-	
-		int [] result = {getPlayerDetails().subType(), weapon, ammo.get(weapon - 1)}; 
-		
+
+		int[] result = { getPlayerDetails().subType(), weapon, ammo.get(weapon - 1) };
+
 		return result;
 	}
 
