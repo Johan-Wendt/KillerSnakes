@@ -17,7 +17,7 @@ public class PlayerController extends TypeControllerBase {
 
 	public void createPlayerAI() {
 		if (numberOfcreatedPlayers < MAX_NUMBER_OF_SNAKES) {
-			super.addToActingObjects(new PlayerHuman(Players.values()[numberOfcreatedPlayers]));
+			super.addToActingObjects(new PlayerAI(Players.values()[numberOfcreatedPlayers]));
 			numberOfcreatedPlayers++;
 		}
 	}

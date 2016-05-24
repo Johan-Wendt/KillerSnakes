@@ -25,10 +25,10 @@ public enum Players implements PlayerDetails {
 		startActingSpeed = 60;
 		startMovingSpeed = 2;
 		imunityLength = 4;
-		width = 12;
-		heigth = 12;
+		width = 18;
+		heigth = 21;
 		startLength = 10;
-		borders = "M0,0 L0,12 12,12 12,0 Z";
+		borders = "M0,0 L0,21 18,21 18,0 Z";
 		
 		this.subType = subType;
 		this.startDirection = startDirection;

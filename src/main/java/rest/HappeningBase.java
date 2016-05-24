@@ -31,6 +31,7 @@ public abstract class HappeningBase extends ActorBase implements Happening {
 			}
 			break;
 		case Constants.BONUS:
+			super.setToBeRemoved();
 			break;
 		default:
 			super.setToBeRemoved();
