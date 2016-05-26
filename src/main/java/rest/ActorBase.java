@@ -82,4 +82,8 @@ public abstract class ActorBase extends InteractorBase implements Actor {
 		currentActingPoints = -(actingSpeed * timesTillNextAct);
 	}
 
+	public static int getActinglimit() {
+		return actingLimit;
+	}
+
 }

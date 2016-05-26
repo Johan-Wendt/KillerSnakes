@@ -113,6 +113,10 @@ public abstract class MoverBase extends ActorBase implements Mover {
 	public void setMovingSpeed(int movingSpeed) {
 		this.movingSpeed = movingSpeed;
 	}
+	public void increaseSpeed() {
+		super.setActingSpeed(super.getActingSpeed() + 10);
+
+	}
 	
 
 

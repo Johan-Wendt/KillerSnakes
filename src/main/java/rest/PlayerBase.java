@@ -56,7 +56,7 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 		super.addQueuedSound(Sounds.BONUS_TAKEN);
 		switch (bonus) {
 		case SPPED:
-			setMovingSpeed((getMovingSpeed() + 1));
+			super.increaseSpeed();
 			break;
 		case GROW:
 			setLength(getLength() + 1, getPlayerDetails().imunityLength());
@@ -157,5 +157,4 @@ public abstract class PlayerBase extends GrowerFront implements Player {
 
 		return result;
 	}
-
 }
